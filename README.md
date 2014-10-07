@@ -6,7 +6,7 @@ Simple parser for .fbp notation written in JavaScript, generating JSON
 Technology
 ---
 
-This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in `docs/BabelParser.rtf`.  
+This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in `docs/BabelParser.txt`.  
 
 `babelparser.js` contains a number of functions, such as test for alpha (`ta`), test for white space (`tb`), test for characters allowed in process names (`tv`).  In have not used the term "universal comparator", but the IMO more natural `copy` and `skip`. 
 
