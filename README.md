@@ -6,7 +6,7 @@ Simple parser for .fbp notation written in JavaScript, generating JSON
 Definition
 ---
 
-Fot information about the grammar supported by ParseFBP, see http:\\jpaulmorrison.com\fbp\CppFBP.shtml#freespec .
+Fot information about the grammar supported by ParseFBP, see `http:\\www.jpaulmorrison.com\fbp\CppFBP.shtml#freespec` .
 
 Technology
 ---
