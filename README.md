@@ -12,6 +12,8 @@ This parser uses the "Babel" technology which I have been using since the 1960s,
 
 Also, end-of-line does not trigger a callback - this application did not need it.
 
+The generated JSON follows the convention established for NoFlo.
+
 Running Parser
 ---
 
