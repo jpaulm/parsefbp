@@ -1,12 +1,12 @@
 parsefbp
 ========
 
-Simple parser for .fbp notation written in JavaScript, generating JSON
+Simple parser for .fbp notation written in JavaScript, generating JSON 
 
 Running Parser
 ---
 
-Run `html\ParseFBP.html` using your favorite browser.
+Run `html\ParseFBP.html` using your favorite browser (it's been tested under Firefox).
 
 This will display a text area, and a button.  Copy the .fbp text into the text area, and hit the button.
 
