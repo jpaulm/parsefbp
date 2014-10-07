@@ -1,0 +1,9 @@
+Generate(com.jpmorrsn.fbp.examples.components.GenerateTestData),
+Generate2(com.jpmorrsn.fbp.examples.components.GenerateTestData),
+_Sort__generated__data(com.jpmorrsn.fbp.components.Sort),
+Display(com.jpmorrsn.fbp.components.ShowText),
+Generate OUT -> in _Sort__generated__data,
+Generate2 OUT -> in _Sort__generated__data,
+'60' -> count Generate2,
+_Sort__generated__data OUT -> in Display,
+'100' -> count Generate
