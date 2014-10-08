@@ -3,6 +3,11 @@ parsefbp
 
 Simple parser for .fbp notation written in JavaScript, generating JSON 
 
+Definition
+---
+
+For information about the grammar supported by ParseFBP, see `http:\\www.jpaulmorrison.com\fbp\CppFBP.shtml#freespec`.
+
 Technology
 ---
 

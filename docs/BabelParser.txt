@@ -13,12 +13,12 @@ and the "universal comparator", which is always true. The default action is to c
 this can be overridden by "I-modification" (the input pointer is not stepped) or "O-modification" (where copying does not 
 take place) or both. If both, O-modification is tested for before I-modification.
 
-In the diagrams, a comparator is represented by a circle or a square, and a true result by a line exiting to the right, and 
+In Babel diagrams, a comparator is represented by a circle or a square, and a true result by a line exiting to the right, and 
 a false result by a line exiting downwards (in this case no pointers move, and no copying takes place). The universal comparator 
 unmodified is also called "copy", while with O-modification, it is called "skip".
 
-Suppose I want to test for A, B or C, followed by 0 or more blanks (which won't be copied), this can be represented as 
-follows (I'll have to use squares for everything, and 'b' for blank):
+Suppose I want to test for A, B or C, followed by 0 or more blanks (which won't be copied to the output stream), this can be 
+represented as follows (I'll have to use squares for everything, and 'b' for blank):
 
             
                          *--------------*
@@ -37,12 +37,12 @@ follows (I'll have to use squares for everything, and 'b' for blank):
            |
 
 On completion of this scan, the output stream will contain A, B or C, and the output pointer will be positioned after 
-this letter.  Any consecutive blanks will have been skipped.
+this letter.  Any consecutive blanks will be skipped, up to the first non-blank.
 
 I have always written my versions of the Babel parser so that each comparator drives an exit (callback) at end of a record. 
 This allows the programmer to specify whether the parse should be sensitive to end of record (like 360/370 Assembler), or 
 insensitive to it, like PL/I. If sensitive, you can either do straight code, or force a false return, so that end of record 
-is treated like an "impossible" character.
+is treated like an "impossible" character. [I didn't bother with this for this application.]
 
 One more example: we want to test if the current character is a '<', and, if it is, copy all the following characters to 
 the output stream, up to but not including the following '>'. I will use 'U' for the universal comparator.           
@@ -50,7 +50,7 @@ the output stream, up to but not including the following '>'. I will use 'U' for
         *-----*                   *-----*      
   ----->|  <  |-----------*------>|  >  |------ we have found the '>' and are 
         *-----*           |       *-----*               positioned just beyond it,
-           |  O-mod       |          |  O-mod           and the intervening chars
+           |  O-mod       |          |  O-mod           and the intervening characters
            |              |          |                  are in the output stream
         not a '<'         |       *-----*
                           |       |  U  |-----*  (remember the universal comparator
