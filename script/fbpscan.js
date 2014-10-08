@@ -1,18 +1,20 @@
 var result = "";
 var downstream = false;
-var procname;
+var procname = "";
+var compname = "";
 var cap;
-var queue = [];
+var procqueue = [];
 var pair = new Array("", ""); // procname, compname
+var connqueue = [];
 var quint = new Array("", "", "", "", 0); // proc, proc, outport, inport, capacity
-//var px = 0;
 var downport = "";
 var upport = "";
 var comma = "";
+var diagname = "";
+var firstproc = true;
 
 function fbpscan(s) {
 	var bp = new BabelParser(s);
-	result = "{\"properties\":<br/> { \"name\": \"xxx\"},<br/>\"processes\": {";
 		
 	while (true) {
 		if (bp.strcmp("INPORT=") || bp.strcmp("OUTPORT=")) {
@@ -28,22 +30,34 @@ function fbpscan(s) {
 		if (4 == skipblanks(bp))
 			return;
 
-		if (!bp.tc("'")) {
+		if (!bp.tc("'")) {   // if not a quote, scan off process name
 
 			process(bp);
+			var i = skipblanks(bp);
+			if (i == 2)  // eol encountered
+				continue;
+			//if (i == 4) {  // end of file
+			//	finish();
+			//	return;
+			//}
+			
+			if (firstproc && bp.tc(":", "o")) {
+				diagname = procname;
+				firstproc = false;
+				continue;
+			}
+			firstproc = false;
 			var px = downstream ? 1 : 0;
 			quint[px] = procname;
 			if (downstream) {	
 				quint[4] = cap;
-				queue.push(quint);
+				connqueue.push(quint);
 				quint = new Array(procname, "", "", "", 0);
 				downstream = false;
 			}
-
-			var i = skipblanks(bp);
-			if (i == 2)  // eol encountered
-				continue;
-			if (i == 4) {  // end of file
+			
+			procname = "";
+			if (4 == skipblanks(bp)) {
 				finish();
 				return;
 			}
@@ -72,7 +86,7 @@ function fbpscan(s) {
 			
 			if (0 < skipblanks(bp))
 				return;
-			queue.push(quint);
+			connqueue.push(quint);
 			quint = new Array(iip, "", "", "", 0);
 			downstream = false;			
 		}
@@ -127,7 +141,7 @@ function skipblanks(bp) {
 
 function process(bp) {
 	
-	var compname = "";
+	compname = "";
 
 	if (bp.tn())
 		alert("Process starting with numeric");
@@ -138,7 +152,7 @@ function process(bp) {
 			if (bp.tc('_'))
 				continue;
 
-			if (bp.tc('-', "io") || bp.tb("io") || bp.tc(',', "io")
+			if (bp.tc('-', "io") || bp.tb("io") || bp.tc(',', "io") || bp.tc(':', "io")
 					|| bp.tc("\;", "io") || bp.eos())
 				break;
 
@@ -159,9 +173,13 @@ function process(bp) {
 					if (!bp.copy())
 						break;
 				}
-				result += comma + "\"" + procname + "\":{\"component\":\"" + compname
-						+ "\"}<br/>";
-				comma = ",";
+				//result += comma + "\"" + procname + "\":{\"component\":\"" + compname
+				//		+ "\"}<br/>";
+				//comma = ",";
+				pair[0] = procname;
+				pair[1] = compname;
+				procqueue.push(pair);
+				pair = new Array("", "");
 				return;
 			}
 			bp.copy();
@@ -239,18 +257,32 @@ function arrow(bp) {
 function finish(){
 	var upproc;
 	var downproc;
-	var capacity;
+	var capacity;  // not in generated code yet
+	
+    if (diagname == "")
+    	diagname = "mydiagram";
+	
+	result = "{\"properties\":<br/> { \"name\": \"" + diagname + "\"},<br/>\"processes\": {";
+	comma = "";
+	for (var i = 0; i < procqueue.length; i++) {
+		procname = (procqueue[i])[0];
+		compname = (procqueue[i])[1];
+		if (compname == "")
+			continue;
+		result += comma + "\"" + procname + "\":{\"component\":\"" + compname + "\"}<br/>";
+		comma = ",";
+	}	
 	result += "}, \"connections\":<br/>[";
  
 	comma = "";
-	for (var i = 0; i < queue.length; i++) {
-		upproc = (queue[i])[0];
-		downproc = (queue[i])[1];
+	for (var i = 0; i < connqueue.length; i++) {
+		upproc = (connqueue[i])[0];
+		downproc = (connqueue[i])[1];
 		if (downproc == "")
 			continue;
-		upport = (queue[i])[2];
-		downport = (queue[i])[3];
-		capacity = (queue[i])[4];  // not used in generated JSON... yet
+		upport = (connqueue[i])[2];
+		downport = (connqueue[i])[3];
+		capacity = (connqueue[i])[4];  // not used in generated JSON... yet
 		result += comma;
 		if (upproc.charAt(0) != "'")
 			result += "{ \"src\": {\"process\" :\"" + upproc + "\", \"port\":\"" + upport + "\"}";
