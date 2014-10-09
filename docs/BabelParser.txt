@@ -10,12 +10,13 @@ although usually) steps to point at the next character in the input stream.
 
 The most common operation is a "character comparator", although there are also "class comparators" (letters and/or numbers), 
 and the "universal comparator", which is always true. The default action is to copy a recognized character to the output, but 
-this can be overridden by "I-modification" (the input pointer is not stepped) or "O-modification" (where copying does not 
-take place) or both. If both, O-modification is tested for before I-modification.
+this can be overridden by "O-modification" (where copying does not take place) or "I-modification" (the input pointer is not 
+stepped) or both. If both, naturally O-modification is tested for before I-modification.
 
-In Babel diagrams, a comparator is represented by a circle or a square, and a true result by a line exiting to the right, and 
-a false result by a line exiting downwards (in this case no pointers move, and no copying takes place). The universal comparator 
-unmodified is also called "copy", while with O-modification, it is called "skip".
+In Babel diagrams, a comparator is represented by a circle (character comparators) or a square (class comparators), and 
+a true result by a line exiting to the right, and a false result by a line exiting downwards (in this case no pointers move, 
+and no copying takes place). The universal comparator unmodified is also called "copy", while with O-modification, it is 
+called "skip".
 
 Suppose I want to test for A, B or C, followed by 0 or more blanks (which won't be copied to the output stream), this can be 
 represented as follows (I'll have to use squares for everything, and 'b' for blank):
@@ -36,13 +37,17 @@ represented as follows (I'll have to use squares for everything, and 'b' for bla
         *-----*
            |
 
-On completion of this scan, the output stream will contain A, B or C, and the output pointer will be positioned after 
-this letter.  Any consecutive blanks will be skipped, up to the first non-blank.
+On completion of this scan, the output stream will contain A, B or C, assuming one of these was found, and the output 
+pointer will be positioned after this letter.  Any consecutive blanks will be skipped, up to the first non-blank.
 
-I have always written my versions of the Babel parser so that each comparator drives an exit (callback) at end of a record. 
+If none of A, B, or C was found at the position marked by the I-pointer, the logic will proceed to the code "below" the 
+test for 'A'.
+
+I have written a number of versions of the Babel parser where each comparator drives an exit (callback) at end of a record. 
 This allows the programmer to specify whether the parse should be sensitive to end of record (like 360/370 Assembler), or 
 insensitive to it, like PL/I. If sensitive, you can either do straight code, or force a false return, so that end of record 
-is treated like an "impossible" character. [I didn't bother with this for this application.]
+is treated like an "impossible" character. However, I haven't done this so far for this application, although it may turn
+out to be useful at some later date. 
 
 One more example: we want to test if the current character is a '<', and, if it is, copy all the following characters to 
 the output stream, up to but not including the following '>'. I will use 'U' for the universal comparator.           
@@ -58,3 +63,5 @@ the output stream, up to but not including the following '>'. I will use 'U' for
                           |                   |       O-mod, it is a 'copy') 
                           *-------------------*
 
+
+One exception to the above statement is that _all_ comparators give a false return if they encounter end of file. 
