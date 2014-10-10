@@ -1,5 +1,4 @@
-                                The BabelParser
-                                                     
+# The BabelParser
 
 The BabelParser is a low-level parsing concept that supports its own graphical notation. It was invented in the UK many 
 years ago, and I have since ported it to just about every environment I've ever worked in.
@@ -20,6 +19,7 @@ unmodified is also called "copy", while with O-modification, it is called "skip"
 Suppose I want to test for A, B or C, followed by 0 or more blanks (which won't be copied to the output stream), this can be 
 represented as follows (I'll have to use squares for everything, and 'b' for blank):
 
+```
             
                          *--------------*
                          |              | 
@@ -35,12 +35,19 @@ represented as follows (I'll have to use squares for everything, and 'b' for bla
         |  C  |-----*
         *-----*
            |
+           
+```           
 
 On completion of this scan, the output stream will contain A, B or C, and the output pointer will be positioned after 
 this letter.  Any consecutive blanks will be skipped, up to the first non-blank.
 
+If none of A, B, or C was found at the position marked by the I-pointer, the logic will proceed to the code "below" the 
+test for 'A'.
+
 One more example: we want to test if the current character is a '<', and, if it is, copy all the following characters to 
-the output stream, up to but not including the following '>'. I will use 'U' for the universal comparator.           
+the output stream, up to but not including the following '>'. I will use 'U' for the universal comparator.     
+
+```
                          
         *-----*                   *-----*      
   ----->|  <  |-----------*------>|  >  |------ we have found the '>' and are 
@@ -53,3 +60,4 @@ the output stream, up to but not including the following '>'. I will use 'U' for
                           |                   |       O-mod, it is a 'copy') 
                           *-------------------*
 
+```
