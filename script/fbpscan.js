@@ -29,17 +29,13 @@ function fbpscan(s) {
 		
 		if (4 == skipblanks(bp))
 			return;
+		
 
 		if (!bp.tc("'")) {   // if not a quote, scan off process name
 
 			process(bp);
-			var i = skipblanks(bp);
-			if (i == 2)  // eol encountered
-				continue;
-			//if (i == 4) {  // end of file
-			//	finish();
-			//	return;
-			//}
+			if (4 == skipblanks(bp))
+				return;
 			
 			if (firstproc && bp.tc(":", "o")) {
 				diagname = procname;
@@ -57,23 +53,23 @@ function fbpscan(s) {
 			}
 			
 			procname = "";
-			if (4 == skipblanks(bp)) {
-				finish();
+			if (4 == skipblanks(bp))
 				return;
-			}
 
-			if (bp.tc(",", "o"))
+			if (bp.tc(",", "o") || bp.tc('\n', "o"))
 				continue;
-			if (bp.tc(";", "o")) {
-				finish();
-				return;
-			}
+			
+			//if (bp.tc(";", "o")) {
+			//	finish();
+			//	return;
+			//}
 
 			downstream = false;
 			port(bp);
 
-			if (0 < skipblanks(bp))
+			if (4 == skipblanks(bp))
 				return;
+			
 			quint[2] = upport;
 		} else {
 			while (true) {
@@ -86,7 +82,7 @@ function fbpscan(s) {
 			}
 			var iip = bp.getOS();
 			
-			if (0 < skipblanks(bp))
+			if (4 == skipblanks(bp))
 				return;
 			connqueue.push(quint);
 			quint = new Array(iip, "", "", "", 0);
@@ -98,12 +94,13 @@ function fbpscan(s) {
 		
 		downstream = true;	
 
-		if (0 < skipblanks(bp))
+		if (4 == skipblanks(bp))
 			return;
 
 		port(bp);
 		quint[3] = downport;
 	}
+	//finish();
 }
 
 function getresult() {
@@ -111,30 +108,25 @@ function getresult() {
 }
 
 function skipblanks(bp) {
-	var res = 0;
+	
 	while (true) {
-		if (bp.eos())
+		if (bp.eof() || bp.tc(";", "o")) { 
+		    finish();
 			return 4;   // end of file
-		if (bp.tc('\n', "o")) {
-			res = 2;
-			continue;
-		}
-		
+	    }
+				
 		if (bp.tb("o"))
 			continue;
 		if (bp.tc("#", "o")) {
 			while (true) {
-				if (bp.tc("\n", "o"))
+				if (bp.tc("\n", "io"))  // make sure eol is seen outside this loop
 					break;
 				if (!bp.skip())
 					break;
-			}
-			
-			res = 2;
+			}	
 			continue;
-		}
-		
-		return res;
+		}	
+		return 0;
 	}
 }
 
@@ -151,8 +143,8 @@ function process(bp) {
 			if (bp.tc('_'))
 				continue;
 
-			if (bp.tc('-', "io") || bp.tb("io") || bp.tc(',', "io") || 
-					bp.tc("\;", "io") || bp.eos())
+			if (bp.tc('-', "io") || bp.tb("io") || bp.tc(',', "io") || bp.tc('\n', "io") || 
+					bp.tc("\;", "io") || bp.eof())
 				break;
 			
 			if (firstproc && bp.tc(':', "io"))
@@ -235,8 +227,8 @@ function arrow(bp) {
 		return false;	
 
 	var i = skipblanks(bp);
-	if (i == 2)
-		return true;
+	//if (i == 2)
+	//	return true;
 	if (i == 4)
 		return false;
 

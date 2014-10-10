@@ -1,5 +1,5 @@
-diagram: A1(xxx/aaa) OUT-> (20) IN B\*3(yyy/bbb)  OUT ->  IN[2] C(ccc)
-'xxxxxxxxxxxxyyyyy' -> IN D34\}AA OUT -> in[3]  E67,  
+Diagram: A1(xxx/aaa) OUT-> (20) IN B\*3(yyy/bbb)  OUT ->  IN[2] C(ccc)
+'xxxxxxxxxxxxyyyyy' -> IN D34\}AA OUT -> in[3]  E\-67
 '23' -> PARAM A1 #comment...
 #another comment xxx yyy 
 D OUT[2] -> IN X
