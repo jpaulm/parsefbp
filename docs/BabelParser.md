@@ -42,7 +42,7 @@ On completion of this scan, the output stream will contain A, B or C, and the ou
 this letter.  Any consecutive blanks will be skipped, up to the first non-blank.
 
 If none of A, B, or C was found at the position marked by the I-pointer, the logic will proceed to the code "below" the 
-test for 'A'.
+test for 'C'.
 
 One more example: we want to test if the current character is a '<', and, if it is, copy all the following characters to 
 the output stream, up to but not including the following '>'. I will use 'U' for the universal comparator.     
