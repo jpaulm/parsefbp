@@ -33,7 +33,8 @@ function fbpscan(s) {
 
 		if (!bp.tc("'")) {   // if not a quote, scan off process name
 
-			process(bp);
+			if (!process(bp))
+				return;
 			if (4 == skipblanks(bp))
 				return;
 			
@@ -57,15 +58,11 @@ function fbpscan(s) {
 				return;
 
 			if (bp.tc(",", "o") || bp.tc('\n', "o"))
-				continue;
-			
-			//if (bp.tc(";", "o")) {
-			//	finish();
-			//	return;
-			//}
+				continue;			
 
 			downstream = false;
-			port(bp);
+			if (!port(bp))
+				return;
 
 			if (4 == skipblanks(bp))
 				return;
@@ -76,7 +73,7 @@ function fbpscan(s) {
 				if (bp.tc("'"))
 					break;
 				if (bp.tc('\n', "o") || !bp.copy()) {
-					syntaxerror("Invalid IIP: " + bp.getOS());
+					syntaxerror(bp, "Invalid IIP");
 					return;
 				}
 			}
@@ -97,7 +94,8 @@ function fbpscan(s) {
 		if (4 == skipblanks(bp))
 			return;
 
-		port(bp);
+		if (!port(bp))
+			return;
 		quint[3] = downport;
 	}
 	//finish();
@@ -134,8 +132,10 @@ function process(bp) {
 	
 	compname = "";
 
-	if (bp.tn())
-		syntaxerror("Process starting with numeric: " + bp.getOS());
+	if (bp.tn()) {
+		syntaxerror(bp, "Process starting with numeric");
+		return false;
+	}
 
 	while (true) {
 		if (!bp.tv()) {
@@ -151,8 +151,10 @@ function process(bp) {
 				break;
 
 			if (bp.tc('\\', "o")) {
-				if (!bp.copy())
-					return;
+				if (!bp.copy()) {
+					syntaxerror(bp, "Escape char ends string")
+					return false;
+				}
 				continue;
 			}
 
@@ -170,28 +172,33 @@ function process(bp) {
 						break;
 					}					
 				}
-				if (!ok) 
-					break;
+				if (!ok) {
+					syntaxerror(bp, "Component name contains end of line");
+					return false;
+				}
 				
 				pair[0] = procname;
 				pair[1] = compname;
 				procqueue.push(pair);
 				pair = new Array("", "");
-				return;
+				return true;
 			}
-			bp.copy();  // copy invalid character to output stream			
-			syntaxerror("Invalid char in process name: " + bp.getOS());
-			return;
+			//bp.copy();  // copy invalid character to output stream			
+			syntaxerror(bp, "Invalid char in process name");
+			return false;
 		}
 	}
 	// no bracket encountered
 	procname = bp.getOS();	
+	return true;
 }
 
 function port(bp) {
 	var updown = this.downstream ? "input" : "output";
-	if (bp.tn())
-		syntaxerror("Port starting with numeric: " + bp.getOS());
+	if (bp.tn()) {
+		syntaxerror(bp, "Port starting with numeric");
+		return false;
+	}
 
 	while (true) {
 		if (bp.ta() || bp.tn() || bp.tc('_') || bp.tc('.'))
@@ -199,7 +206,8 @@ function port(bp) {
 
 		var str = bp.getOS();
 		if (str.length == 0) {
-			syntaxerror("Missing " + updown + " port");
+			syntaxerror(bp, "Missing " + updown + " port");
+			return false;
 		} 		
 		break;
 	}
@@ -209,8 +217,10 @@ function port(bp) {
 				str += bp.getOS();
 				break;
 			}
-			if (!bp.tn())
-				break;
+			if (!bp.tn()) {
+				syntaxerror(bp, "Non-numeric in aray port index");
+				return false;
+			}
 		}
 		
 	}
@@ -218,13 +228,16 @@ function port(bp) {
 		downport = str;
 	else
 		upport = str;
+	return true;
 }
 
 function arrow(bp) {
 	if (!bp.tc('-', "o"))
 		return false;
-	if (!bp.tc('>', "o"))
+	if (!bp.tc('>', "o")) {
+		syntaxerror(bp, "Unfinished arrow");
 		return false;	
+	}
 
 	var i = skipblanks(bp);
 	//if (i == 2)
@@ -238,15 +251,23 @@ function arrow(bp) {
 				cap = bp.getOS();  // capacity: have to decide where to put this in output
 				break;
 			}
-			if (!bp.tn())
-				break;
+			if (!bp.tn()){
+				syntaxerror(bp, "Non-numeric in capacity");
+				return false;
+			}
 		}
 	}
 	return true;
 }
 
-function syntaxerror(s) {
-	alert(s);	
+function syntaxerror(bp, s) {
+	//alert(s);	
+	var t = bp.getCurSlice();
+	var u = bp.getCurPosn();
+	result += "<div style=\"color:#FF0000;font-family:courier\"> Error: " + s + "<br/>";
+	result += "Current slice......: " + t + "<br/>";
+	result += "Current position...: " + u + "\n" + "</div><br/>";	
+	finish();
 }
 
 function finish(){
@@ -257,7 +278,7 @@ function finish(){
     if (diagname == "")
     	diagname = "mydiagram";
 	
-	result = "{\"properties\":<br/> { \"name\": \"" + diagname + "\"},<br/>\"processes\": <br/>{";
+	result += "<br/>{\"properties\":<br/> { \"name\": \"" + diagname + "\"},<br/>\"processes\": <br/>{";
 	comma = "";
 	for (var i = 0; i < procqueue.length; i++) {
 		procname = (procqueue[i])[0];

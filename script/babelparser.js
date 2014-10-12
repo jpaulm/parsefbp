@@ -3,6 +3,7 @@ function BabelParser(s) {
 	this.ix = 0;
 	this.sa = new Array();
 	this.outStr = "";
+	this.start = 0;
 
 	// convert input string to character array
 	
@@ -18,6 +19,26 @@ function BabelParser(s) {
 		this.outStr = "";
 		return os;
 	};
+	
+    // get current slice
+	
+	BabelParser.prototype.getCurSlice = function() {	
+		var end;
+		this.start = Math.max(this.ix - 12, 0);
+		end =  Math.min(this.ix + 12, this.sa.length);
+		var res = this.sa.slice(this.start, end);		
+		return res.join("").replace(/\s/g, ".");
+	};
+	
+	
+// get current position
+	
+	BabelParser.prototype.getCurPosn = function() {	
+		var i = this.ix - this.start;
+		var res = ".".repeat(i) + "^";
+		return res;
+	};
+	
 	
 	// upper and lower case alpha
 
