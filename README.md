@@ -8,16 +8,14 @@ General
 
 As of now, I believe this parser handles correct .fbp files correctly.  Error handling has been improved, but will be subject to further improvement as time goes on. 
 
+Followng Wayne Stevens' original design, this parser supports a network name at the start, followed by a colon.  If this is not provided, the generated JSON will generate a network name of `MyDiagram`.
+
+The only places end-of-lines are permitted are at the 'end of clause' - as an alternative to commas.
+
 Definition
 ---
 
 The free-form alternative notation, an early form of which is described briefly in Chapter 23 of the 1st edition of "Flow-Based Programming" (Chap. 22 of the 2nd), basically follows a "flow" style, where connections can be chained together until a process is encountered that has no output ports connected.  This constitutes the end of a "clause", and is indicated by a comma or end-of-line. 
-
-Here is an (partial) example:
-
-    'data.fil'->OPT Reader(THFILERD) OUT -> IN Selector(THSPLIT) MATCH -> ... ,
-      Selector NOMATCH -> ...
-
 The general syntax for free-form network definitions is quite simple, and can be shown as follows (using a variant of the notation which has started to become popular for defining syntax):  
   
 ![SyntaxDiagram](https://github.com/jpaulm/parsefbp/blob/master/docs/Threads.gif "Syntax Diagram")
@@ -32,6 +30,13 @@ Other symbols:
 - "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
 
 Note: Neither the question mark nor the capacity value are currently being used to generate code in the JSON output.
+
+Here is a partial example:
+
+    'data.fil'->OPT Reader(THFILERD) OUT -> IN Selector(THSPLIT) MATCH -> ... ,
+      Selector NOMATCH -> ...
+      
+Note that the component name only has to be specified once for a given process name.   
  
 The main network may be followed by one or more subnets, which have basically the same notation (each one starting with a label and
 finishing with a semi-colon). However, subnets have to have additional notation describing how their external port names relate to their internal ones. Since this association is like an equivalence, we use the symbol `=>` to indicate
