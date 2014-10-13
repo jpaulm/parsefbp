@@ -36,7 +36,7 @@ Here is a partial example:
     'data.fil'->OPT Reader(THFILERD) OUT -> IN Selector(THSPLIT) MATCH -> ... ,
       Selector NOMATCH -> ...
       
-Note that the component name only has to be specified once for a given process name.   
+The first occurrence of a process name in a network or subnet should specify the associated component.
  
 The main network may be followed by one or more subnets, which have basically the same notation (each one starting with a label and
 finishing with a semi-colon). However, subnets have to have additional notation describing how their external port names relate to their internal ones. Since this association is like an equivalence, we use the symbol `=>` to indicate
