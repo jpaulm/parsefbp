@@ -30,6 +30,8 @@ Other symbols:
 - "Conn" represent an arrow, with optional capacity (in round brackets), e.g. `(30)`
 - "IIP" represents a quoted string (using single quotes) - any internal quotes must be escaped
 - "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
+
+Note: Neither the question mark nor the capacity value are currently being used to generate code in the JSON output.
  
 The main network may be followed by one or more subnets, which have basically the same notation (each one starting with a label and
 finishing with a semi-colon). However, subnets have to have additional notation describing how their external port names relate to their internal ones. Since this association is like an equivalence, we use the symbol `=>` to indicate
