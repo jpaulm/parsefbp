@@ -8,9 +8,9 @@ General
 
 As of now, I believe this parser handles correct .fbp files correctly.  Error handling has been improved, but will be subject to further improvement as time goes on. 
 
-Followng Wayne Stevens' original design, this parser supports a network name at the start, followed by a colon.  If this is not provided, the generated JSON will generate a network name of `MyDiagram`.
+Followng Wayne Stevens' original design, this parser supports a network name at the start, followed by a colon (see #4).  If this is not provided, the generated JSON will generate a network name of `MyDiagram`.
 
-The only places end-of-lines are permitted are at the 'end of clause' - as an alternative to commas.
+The only places end-of-lines are permitted are at the 'end of clause' - as an alternative to commas (#3).
 
 Definition
 ---
