@@ -20,8 +20,7 @@ Here is an (partial) example:
 
 The general syntax for free-form network definitions is quite simple, and can be shown as follows (using a variant of the notation which has started to become popular for defining syntax):  
   
-  
-  
+![SyntxDiagram](https://github.com/jpaulm/parsefbp/blob/master/docs/Threads.gif "Syntax Diagram")
 
 "EOL" ("end of line") indicates the alternative NoFlo convention for "end of clause". The mark above "EOL" is meant to be a comma.
 
@@ -49,7 +48,7 @@ The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 Technology
 ---
 
-This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in `docs/BabelParser.txt`.  
+This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in `docs/BabelParser.md`.  
 
 `babelparser.js` contains a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for characters allowed in process names (`tv`).  In the code I have not used the term "universal comparator", but the IMO more natural `copy` and `skip`. 
 
