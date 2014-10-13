@@ -50,7 +50,7 @@ The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 Technology
 ---
 
-This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in https://github.com/jpaulm/parsefbp/blob/master/docs/BabelParser.md .  
+This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in https://github.com/jpaulm/parsefbp/blob/master/docs/BabelParser.md.  
 
 `babelparser.js` contains a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for characters allowed in process names (`tv`).  In the code I have not used the term "universal comparator", but the IMO more natural `copy` and `skip`. 
 
