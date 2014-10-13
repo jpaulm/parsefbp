@@ -3,12 +3,48 @@ parsefbp
 
 Simple parser for .fbp notation written in JavaScript, generating JSON 
 
+General
+---
+
+As of now, I believe this parser handles correct .fbp files correctly.  Error handling has been improved, but will be subject to further improvement as time goes on. 
+
 Definition
 ---
 
-For information about the grammar supported by ParseFBP, see `http:\\www.jpaulmorrison.com\fbp\CppFBP.shtml#freespec`.
+The free-form alternative notation, an early form of which is described briefly in Chapter 23 of the 1st edition of "Flow-Based Programming" (Chap. 22 of the 2nd), basically follows a "flow" style, where connections can be chained together until a process is encountered that has no output ports connected.  This constitutes the end of a "clause", and is indicated by a comma or end-of-line. 
 
-As of now, I believe this parser handles correct .fbp files correctly.  Error handling has to be improved - this will happen gradually over the next little while.
+Here is an (partial) example:
+
+    'data.fil'->OPT Reader(THFILERD) OUT -> IN Selector(THSPLIT) MATCH -> ... ,
+      Selector NOMATCH -> ...
+
+The general syntax for free-form network definitions is quite simple, and can be shown as follows (using a variant of the notation which has started to become popular for defining syntax):  
+  
+  
+  
+
+"EOL" ("end of line") indicates the alternative NoFlo convention for "end of clause". The mark above "EOL" is meant to be a comma.
+
+Other symbols:
+
+- "Proc-name" represents a process name, optionally followed by the component name (in round brackets)
+- "Conn" represent an arrow, with optional capacity (in round brackets), e.g. `(30)`
+- "IIP" represents a quoted string (using single quotes) - any internal quotes must be escaped
+- "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
+ 
+The main network may be followed by one or more subnets, which have basically the same notation (each one starting with a label and
+finishing with a semi-colon). However, subnets have to have additional notation describing how their external port names relate to their internal ones. Since this association is like an equivalence, we use the symbol `=>` to indicate
+this relationship. Thus, 
+
+    port-name-1 => port-name-2 process-A port-name-3,
+    
+indicates that `port-name-1` is an external input port of the subnet, while `port-name-2` is the corresponding input port of process-A. Similarly,
+
+    port-name-1 process-A port-name-2 =&gt; port-name-3,
+    
+indicates that `port-name-3` is an external output port of the subnet, while `>port-name-2` is the corresponding output port of process-A. 
+
+The component name can be specified on any occurrence of the process name. This can then be followed optionally by a question mark to indicate that tracing is desired. </p>
 
 Technology
 ---
