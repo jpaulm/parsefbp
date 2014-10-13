@@ -27,7 +27,7 @@ The general syntax for free-form network definitions is quite simple, and can be
 
 Other symbols:
 
-- "Proc-name" represents a process name, optionally followed by the component name (in round brackets)
+- "Proc-name" represents a process name, optionally followed by the component name (in round brackets), optionally followed by a question mark to indicate that tracing is desired.  The component name can be specified on any occurrence of the process name. 
 - "Conn" represent an arrow, with optional capacity (in round brackets), e.g. `(30)`
 - "IIP" represents a quoted string (using single quotes) - any internal quotes must be escaped
 - "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
@@ -40,11 +40,11 @@ this relationship. Thus,
     
 indicates that `port-name-1` is an external input port of the subnet, while `port-name-2` is the corresponding input port of process-A. Similarly,
 
-    port-name-1 process-A port-name-2 =&gt; port-name-3,
+    port-name-1 process-A port-name-2 => port-name-3,
     
 indicates that `port-name-3` is an external output port of the subnet, while `>port-name-2` is the corresponding output port of process-A. 
 
-The component name can be specified on any occurrence of the process name. This can then be followed optionally by a question mark to indicate that tracing is desired. </p>
+The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 
 Technology
 ---
