@@ -71,7 +71,7 @@ function fbpscan(s) {
 				quint[4] = cap;
 				cap = 0;
 				connqueue.push(quint);
-				alert(quint);
+				//alert(quint);
 				quint = new Array(procname, "", "", "", 0);
 				//downstream = false;
 			}
