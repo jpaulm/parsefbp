@@ -32,16 +32,14 @@ function fbpscan(s) {
 			continue;	
 		}
 		
-		if (!skipblanks(bp))
-			return;
+		skipblanks(bp);
 		
 
 		if (!bp.tc("'")) {   // if not a quote, scan off process name
 
 			if (!process(bp))
 				return;
-			if (!skipblanks(bp))
-				return;
+			skipblanks(bp);
 			
 			if (firstproc && bp.tc(":", "o")) {
 				diagname = procname;
@@ -77,8 +75,7 @@ function fbpscan(s) {
 			}
 			
 			procname = "";
-			if (!skipblanks(bp))
-				return;
+			skipblanks(bp);
 
 			conn = false;
 			if (bp.tc(",", "o")) {					
@@ -88,12 +85,17 @@ function fbpscan(s) {
 			
 			if (bp.tc("\n", "o")) 
 				continue;
+			
+			if (bp.tc(";", "o") || bp.eof()) {
+				connqueue.push(quint);
+				finish();
+				return;
+			}
 			  					
 			if (!port(bp))
 				return;
 
-			if (!skipblanks(bp))
-				return;
+			skipblanks(bp);
 			
 			quint[2] = upport;
 			
@@ -110,11 +112,8 @@ function fbpscan(s) {
 			}
 			var iip = bp.getOS();
 			quint[0] = iip;
-			if (!skipblanks(bp))
-				return;
-			//connqueue.push(quint);
-			//alert(quint);
-			//quint = new Array(iip, "", "", "", 0);	
+			skipblanks(bp);
+				
 			if (!arrow(bp)) {
 				syntaxerror(bp, "IIP not followed by arrow");
 				return;
@@ -123,8 +122,7 @@ function fbpscan(s) {
 		
 		conn = true;	
 
-		if (!skipblanks(bp))
-			return;
+		skipblanks(bp);
 
 		if (!port(bp))
 			return;
@@ -140,9 +138,8 @@ function getresult() {
 function skipblanks(bp) {
 	
 	while (true) {
-		if (bp.eof() || bp.tc(";", "o")) { 
-		    finish();
-			return false;   // end of file
+		if (bp.eof() || bp.tc(";", "o")) { 		
+			return false;   // end of net or end of file
 	    }
 				
 		if (bp.tb("o"))
@@ -276,11 +273,7 @@ function arrow(bp) {
 		return false;	
 	}
 
-	var i = skipblanks(bp);
-	//if (i == 2)
-	//	return true;
-	if (i == 4)
-		return false;
+	skipblanks(bp);
 
 	if (bp.tc("(", "o")) {
 		while (true) {

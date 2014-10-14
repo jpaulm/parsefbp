@@ -129,7 +129,7 @@ function BabelParser(s) {
 	BabelParser.prototype.tv = function(opt) {
 		if (this.ix >= this.sa.length)
 			return false;
-		var patt = /[^\~\`\!\@\#\$\%\^\&\*\(\)\_\-\+\=\<\,\>\.\?\/\:\;\"\'\{\[\}\]\|\\\n\r ]/g;
+		var patt = /[^\~\`\!\@\#\$\%\^\&\*\(\)\-\+\=\<\,\>\.\?\/\:\;\"\'\{\[\}\]\|\\\s]/g;
 		var result = patt.test(this.sa[this.ix]);
 		if (!result)
 			return false;
