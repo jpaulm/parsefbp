@@ -1,6 +1,6 @@
 Diagram: A1(xxx/aaa) OUT-> (20) IN B\*3(yyy/bbb)  OUT ->  IN[2] C(ccc),
-'xxxxxxxxxxxxyyyyy' -> IN D34\}AA OUT -> in[3]  E~67
+'xxxxxxxxxxxxyyyyy' -> IN B\*3 OUT -> in[3]  C
 '23' -> PARAM A1 #comment...
 #another comment xxx yyy 
-D OUT[2] -> IN X
+A1 OUT[2] -> IN X(www)
 

@@ -1,5 +1,5 @@
 var result = "";
-var downstream = false;
+var conn = false;
 var procname = "";
 var compname = "";
 var cap;
@@ -27,7 +27,12 @@ function fbpscan(s) {
 		continue;
 		}
 		
-		if (4 == skipblanks(bp))
+		if (bp.tc('\n', "o")) {
+			conn = false;
+			continue;	
+		}
+		
+		if (!skipblanks(bp))
 			return;
 		
 
@@ -35,39 +40,65 @@ function fbpscan(s) {
 
 			if (!process(bp))
 				return;
-			if (4 == skipblanks(bp))
+			if (!skipblanks(bp))
 				return;
 			
 			if (firstproc && bp.tc(":", "o")) {
 				diagname = procname;
 				firstproc = false;
+				procname = "";
 				continue;
+			} 
+			else if (procname.length > 0) {
+				var ok = false;
+				for (var i = 0; i < procqueue.length; i++) {
+					if ((procqueue[i])[0] == procname){
+						ok = true;
+						break;
+					}
+				}
+				if (!ok) {
+					syntaxerror(bp, "No component name specified for: " + procname);
+					return false;
+				}	
 			}
 			firstproc = false;
-			var px = downstream ? 1 : 0;
+			
+			var px = conn ? 1 : 0;
 			quint[px] = procname;
-			if (downstream) {	
+			
+			if (conn) {	
 				quint[4] = cap;
+				cap = 0;
 				connqueue.push(quint);
+				alert(quint);
 				quint = new Array(procname, "", "", "", 0);
-				downstream = false;
+				//downstream = false;
 			}
 			
 			procname = "";
-			if (4 == skipblanks(bp))
+			if (!skipblanks(bp))
 				return;
 
-			if (bp.tc(",", "o") || bp.tc('\n', "o"))
-				continue;			
-
-			downstream = false;
+			conn = false;
+			if (bp.tc(",", "o")) {					
+				skipblanks(bp);
+				continue;
+			}
+			
+			if (bp.tc("\n", "o")) 
+				continue;
+			  					
 			if (!port(bp))
 				return;
 
-			if (4 == skipblanks(bp))
+			if (!skipblanks(bp))
 				return;
 			
 			quint[2] = upport;
+			
+			if (!arrow(bp))
+				return;
 		} else {
 			while (true) {
 				if (bp.tc("'"))
@@ -78,27 +109,28 @@ function fbpscan(s) {
 				}
 			}
 			var iip = bp.getOS();
-			
-			if (4 == skipblanks(bp))
+			quint[0] = iip;
+			if (!skipblanks(bp))
 				return;
-			connqueue.push(quint);
-			quint = new Array(iip, "", "", "", 0);
-			downstream = false;			
+			//connqueue.push(quint);
+			//alert(quint);
+			//quint = new Array(iip, "", "", "", 0);	
+			if (!arrow(bp)) {
+				syntaxerror(bp, "IIP not followed by arrow");
+				return;
+			}
 		}
 		
-		if (!arrow(bp))
-			return;
-		
-		downstream = true;	
+		conn = true;	
 
-		if (4 == skipblanks(bp))
+		if (!skipblanks(bp))
 			return;
 
 		if (!port(bp))
 			return;
 		quint[3] = downport;
 	}
-	//finish();
+	
 }
 
 function getresult() {
@@ -110,7 +142,7 @@ function skipblanks(bp) {
 	while (true) {
 		if (bp.eof() || bp.tc(";", "o")) { 
 		    finish();
-			return 4;   // end of file
+			return false;   // end of file
 	    }
 				
 		if (bp.tb("o"))
@@ -124,7 +156,7 @@ function skipblanks(bp) {
 			}	
 			continue;
 		}	
-		return 0;
+		return true;
 	}
 }
 
@@ -144,7 +176,7 @@ function process(bp) {
 				continue;
 
 			if (bp.tc('-', "io") || bp.tb("io") || bp.tc(',', "io") || bp.tc('\n', "io") || 
-					bp.tc("\;", "io") || bp.eof())
+					bp.tc("\;", "io") || bp.tc("?", "io") || bp.eof())
 				break;
 			
 			if (firstproc && bp.tc(':', "io"))
@@ -181,15 +213,20 @@ function process(bp) {
 				pair[1] = compname;
 				procqueue.push(pair);
 				pair = new Array("", "");
+				skipblanks(bp);
+				bp.tc("?", "o"); 				
 				return true;
 			}
-			//bp.copy();  // copy invalid character to output stream			
+			else {		
 			syntaxerror(bp, "Invalid char in process name");
 			return false;
+			}
 		}
 	}
 	// no bracket encountered
 	procname = bp.getOS();	
+	skipblanks(bp);	
+	bp.tc("?", "o"); 
 	return true;
 }
 
@@ -224,7 +261,7 @@ function port(bp) {
 		}
 		
 	}
-	if (downstream)
+	if (conn)
 		downport = str;
 	else
 		upport = str;
@@ -276,7 +313,7 @@ function finish(){
 	var capacity;  // not in generated code yet
 	
     if (diagname == "")
-    	diagname = "mydiagram";
+    	diagname = "MyDiagram";
 	
 	result += "<br/>{\"properties\":<br/> { \"name\": \"" + diagname + "\"},<br/>\"processes\": <br/>{";
 	comma = "";
