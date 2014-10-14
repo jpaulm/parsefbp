@@ -29,7 +29,7 @@ Other symbols:
 - "IIP" represents a quoted string (using single quotes) - any internal quotes must be escaped
 - "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
 
-Note: Neither the question mark nor the capacity value are currently being used to generate code in the JSON output.
+Note: Neither the question mark nor the capacity value are currently being used to generate JSON output.
 
 Here is a partial example:
 
@@ -37,6 +37,14 @@ Here is a partial example:
       Selector NOMATCH -> ...
       
 The first occurrence of a process name in a network or subnet should specify the associated component.
+
+Characters _not_ allowed in process names: the special characters `~!!@#$%^&*()+-={}|[]\<>?/`, backtick or any "whitespace" characters.  Underscores are allowed.
+
+Process names cannot start with a numeric.
+
+Port names can contain any numerics (except in the first position) and any alpha.  Case is not significant.
+
+Array port indexes are shown in square brackets, e.g. `OUT[2]`.
  
 The main network may be followed by one or more subnets, which have basically the same notation (each one starting with a label and
 finishing with a semi-colon). However, subnets have to have additional notation describing how their external port names relate to their internal ones. Since this association is like an equivalence, we use the symbol `=>` to indicate
