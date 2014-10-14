@@ -22,6 +22,8 @@ The general syntax for free-form network definitions is quite simple, and can be
 
 "EOL" ("end of line") indicates the alternative NoFlo convention for "end of clause". The mark above "EOL" is meant to be a comma.
 
+The final semi-colon may be omitted.
+
 Other symbols:
 
 - "Proc-name" represents a process name, optionally followed by the component name (in round brackets), optionally followed by a question mark to indicate that tracing is desired.  The component name can be specified on any occurrence of the process name. 
