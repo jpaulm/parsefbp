@@ -40,7 +40,7 @@ Here is a partial example:
       
 The first occurrence of a process name in a network or subnet should specify the associated component.
 
-Characters _not_ allowed in process names: special characters (except for underscore) or any "whitespace" characters.  However any special character can be "escaped" using a backslash. All other characters are allowed, including numerics (except in the first position) and Chinese or other multibyte character sets.  
+Characters _not_ allowed in process names: special characters (except for underscore) or any "whitespace" characters.  However any special character can be "escaped" using a backslash (underscore does not need to be). All other characters are allowed, including numerics (except in the first position) and Chinese or other multibyte character sets.  
 
 Port names can contain any numerics (except in the first position) and any alpha (a-z, A-Z).  Case is not significant.
 
