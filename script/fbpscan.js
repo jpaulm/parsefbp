@@ -138,11 +138,11 @@ function getresult() {
 function skipblanks(bp) {
 	
 	while (true) {
-		if (bp.eof() || bp.tc(";", "o")) { 		
-			return false;   // end of net or end of file
-	    }
+		//if (bp.eof() || bp.tc(";", "o")) { 		
+		//	return false;   // end of net or end of file
+	    //}
 				
-		if (bp.tb("o"))
+		if (bp.tb("o") || bp.tc("\r", "o"))   // ignore \r (?)
 			continue;
 		if (bp.tc("#", "o")) {
 			while (true) {
