@@ -2,4 +2,4 @@ Diagram: A1(xxx/aaa) OUT-> (20) IN B\*3(yyy/bbb)  OUT ->  IN[2] C_A(ccc),
 'xxxxxxxxxxxxyyyyy' -> IN B\*3 OUT -> in[3]  C_A  
 '23' -> PARAM A1 #comment...
 #another comment xxx yyy 
-A1 OUT[2] -> IN X(www)
+A1 OUT[2] -> IN X(www);
