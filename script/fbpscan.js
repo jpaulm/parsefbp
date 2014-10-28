@@ -1,4 +1,4 @@
-var BabelParser = require('././babelparser/script/babelparser'); 
+var BabelParser = require('babelparser'); 
 module.exports=fbpscan;
 
 var result = "";
