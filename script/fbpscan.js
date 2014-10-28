@@ -1,3 +1,6 @@
+var BabelParser = require('././babelparser/script/babelparser'); 
+module.exports=fbpscan;
+
 var result = "";
 var conn = false;
 var procname = "";
@@ -369,3 +372,9 @@ function finish() {
 	}
 	result += "]}";
 }
+
+String.prototype.repeat = function( num )
+{
+    return new Array( num + 1 ).join( this );
+};
+ 

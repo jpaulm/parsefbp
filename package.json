@@ -1,0 +1,27 @@
+{
+  "name": "jpaulmorrison",
+  "version": "0.1.0",
+  "description": "General Babel Parser functions for scanners  ",
+  "main": "fbpscan.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node script/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jpaulm/parsefbp.git"
+  },
+  "keywords": [
+    "parser",
+    "babel",
+    "syntax"
+  ],
+  "author": "J. Paul Morrison <paul.morrison@rogers.com> (http://jpaulmorrison.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpaulm/parsefbp/issues"
+  },
+  "homepage": "https://github.com/jpaulm/parsefbp"
+}
