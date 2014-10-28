@@ -1,8 +1,8 @@
 {
-  "name": "jpaulmorrison",
+  "name": "parsefbp",
   "version": "0.1.0",
   "description": "General Babel Parser functions for scanners  ",
-  "main": "fbpscan.js",
+  "main": "script/fbpscan.js",
   "directories": {
     "doc": "docs"
   },

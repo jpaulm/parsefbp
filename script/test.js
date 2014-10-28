@@ -6,4 +6,4 @@ t += "'23' -> PARAM A1 #comment...\n";
 t += " #another comment xxx yyy \n";
 t += "A1 OUT[2] -> IN X(www);";
 
-fbpscan(t);
+console.log(fbpscan(t));
