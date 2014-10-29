@@ -52,7 +52,7 @@ The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 Technology
 ---
 
-This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in https://github.com/jpaulm/babelparser/blob/master/docs/BabelParser.md.  
+This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in https://github.com/jpaulm/babelparser/blob/master/README.md.  
 
 `babelparser.js` contains a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for characters allowed in process names (`tv`).  In the code I have not used the term "universal comparator", but the IMO more natural `copy` and `skip`. 
 
@@ -63,6 +63,8 @@ Running Parser
 
 Run `html\ParseFBP.html` using your favorite browser (it's been tested under Firefox).
 
-This will display a text area, and a button.  Copy the .fbp text into the text area, and hit the button.
+This will display a text area, and a button.  Copy the .fbp text from the `data` folder into the text area, and hit the button.
 
 The generated JSON will be displayed as a document - it can be copy/pasted to any destination you wish. If someone knows how to write to an actual file, perhaps they could let me know, or sign on as a collaborator.
+
+Alternatively, install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.
