@@ -63,6 +63,8 @@ Running Parser
 
 Run `html\ParseFBP.html` using your favorite browser (it's been tested under Firefox).
 
-This will display a text area, and a button.  Copy the .fbp text into the text area, and hit the button.
+This will display a text area, and a button.  Copy the .fbp text from the `data` folder into the text area, and hit the button.
 
 The generated JSON will be displayed as a document - it can be copy/pasted to any destination you wish. If someone knows how to write to an actual file, perhaps they could let me know, or sign on as a collaborator.
+
+Alternatively, install `node.js` (html://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.
