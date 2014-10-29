@@ -15,7 +15,7 @@ module.exports = function(s) {
 	var diagname = "";
 	var firstproc = true;
 	function fbpscan(s) {
-		var bp = new BabelParser(s);
+		var bp = new BabelParser(s);		
 		while (true) {
 			if (bp.strcmp("INPORT=") || bp.strcmp("OUTPORT=")) {
 				while (true) {

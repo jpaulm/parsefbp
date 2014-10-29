@@ -1,0 +1,8 @@
+# Eclipse project
+
+.settings/
+.project
+
+#Windows stuff
+
+Thumbs.db

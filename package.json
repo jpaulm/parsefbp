@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/jpaulm/parsefbp/issues"
   },
-  "homepage": "https://github.com/jpaulm/parsefbp"
+  "homepage": "https://github.com/jpaulm/parsefbp",
+  "dependencies": {
+    "babelparser": "git://github.com/jpaulm/babelparser"
+  }
 }
