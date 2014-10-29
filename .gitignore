@@ -1,3 +1,7 @@
+# node stuff
+
+node_modules/
+
 # Eclipse project
 
 .settings/
