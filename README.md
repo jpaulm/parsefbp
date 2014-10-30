@@ -61,10 +61,12 @@ The generated JSON follows the convention established for NoFlo.
 Running Parser
 ---
 
-Run `html\ParseFBP.html` using your favorite browser (it's been tested under Firefox).
+This project has now been set up to run under `node.js`, so install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.  This project has a dependncy on the `babelparser` project, so you may have to do a `npm install jpaulm/babelparser --save` beforehand.  
 
-This will display a text area, and a button.  Copy the .fbp text from the `data` folder into the text area, and hit the button.
+For this test, the input data has been set up as a constant in `script/test.js`.  Output, including the first syntax error, if any, will be displayed on the console.
 
-The generated JSON will be displayed as a document - it can be copy/pasted to any destination you wish. If someone knows how to write to an actual file, perhaps they could let me know, or sign on as a collaborator.
+Alternatively, run `html\ParseFBP.html` using your favorite browser (it's been tested under Firefox).  Currently, I'm not sure how to get around the `node.js` `require` statements - but that shouldn't be too hard for those skilled in the art!
 
-Alternatively, install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.
+This will display a text area, and a `Generate JSON` button.  Copy the .fbp text from the `data` folder into the text area, and hit the button.
+
+The generated JSON will be displayed as a document - it can be copy/pasted to any destination you wish. 
