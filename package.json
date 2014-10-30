@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/jpaulm/parsefbp",
   "dependencies": {
-    "babelparser": "git://github.com/jpaulm/babelparser"
+    "babelparser": "^0.1.0"
   }
 }

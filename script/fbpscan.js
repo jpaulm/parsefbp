@@ -14,8 +14,10 @@ module.exports = function(s) {
 	var upport = "";	
 	var diagname = "";
 	var firstproc = true;
+	var bp = new BabelParser(s);
 	function fbpscan(s) {
-		var bp = new BabelParser(s);		
+		try {
+				
 		while (true) {
 			if (bp.strcmp("INPORT=") || bp.strcmp("OUTPORT=")) {
 				while (true) {
@@ -49,7 +51,7 @@ module.exports = function(s) {
 						}
 					}
 					if (!ok) {
-						syntaxerror(bp, "No component name specified for: "
+						throw("No component name specified for: "
 								+ procname);
 						return false;
 					}
@@ -90,7 +92,7 @@ module.exports = function(s) {
 					if (bp.tc("'"))
 						break;
 					if (bp.tc('\n', "o") || !bp.copy()) {
-						syntaxerror(bp, "Invalid IIP");
+						throw("Invalid IIP");
 						return;
 					}
 				}
@@ -98,7 +100,7 @@ module.exports = function(s) {
 				quint[0] = iip;
 				skipblanks(bp);
 				if (!arrow(bp)) {
-					syntaxerror(bp, "IIP not followed by arrow");
+					throw("IIP not followed by arrow");
 					return;
 				}
 			}
@@ -107,7 +109,16 @@ module.exports = function(s) {
 			if (!port(bp))
 				return;
 			quint[3] = downport;
-		}
+		}	 
+	} 
+catch(err) {
+	var t = bp.getCurSlice();
+	var u = bp.getCurPosn();
+	result += "Syntax error: \n";
+	result += "Current slice......: " + t + "\n";
+	result += "Current position...: " + u + "\n";
+	finish();
+}
 	}
 	function skipblanks(bp) {
 		while (true) {
@@ -132,7 +143,7 @@ module.exports = function(s) {
 	function process(bp) {
 		compname = "";
 		if (bp.tn()) {
-			syntaxerror(bp, "Process starting with numeric");
+			throw("Process starting with numeric");
 			return false;
 		}
 		while (true) {
@@ -147,7 +158,7 @@ module.exports = function(s) {
 					break;
 				if (bp.tc('\\', "o")) {
 					if (!bp.copy()) {
-						syntaxerror(bp, "Escape char ends string");
+						throw("Escape char ends string");
 						return false;
 					}
 					continue;
@@ -166,7 +177,7 @@ module.exports = function(s) {
 						}
 					}
 					if (!ok) {
-						syntaxerror(bp, "Component name contains end of line");
+						throw("Component name contains end of line");
 						return false;
 					}
 					pair[0] = procname;
@@ -177,7 +188,7 @@ module.exports = function(s) {
 					bp.tc("?", "o");
 					return true;
 				} else {
-					syntaxerror(bp, "Invalid char in process name");
+					throw("Invalid char in process name");
 					return false;
 				}
 			}
@@ -191,7 +202,7 @@ module.exports = function(s) {
 	function port(bp) {
 		var updown = this.downstream ? "input" : "output";
 		if (bp.tn()) {
-			syntaxerror(bp, "Port starting with numeric");
+			throw("Port starting with numeric");
 			return false;
 		}
 		while (true) {
@@ -199,7 +210,7 @@ module.exports = function(s) {
 				continue;
 			var str = bp.getOS();
 			if (str.length == 0) {
-				syntaxerror(bp, "Missing " + updown + " port");
+				throw("Missing " + updown + " port");
 				return false;
 			}
 			break;
@@ -211,7 +222,7 @@ module.exports = function(s) {
 					break;
 				}
 				if (!bp.tn()) {
-					syntaxerror(bp, "Non-numeric in aray port index");
+					throw("Non-numeric in aray port index");
 					return false;
 				}
 			}
@@ -226,7 +237,7 @@ module.exports = function(s) {
 		if (!bp.tc('-', "o"))
 			return false;
 		if (!bp.tc('>', "o")) {
-			syntaxerror(bp, "Unfinished arrow");
+			throw("Unfinished arrow");
 			return false;
 		}
 		skipblanks(bp);
@@ -238,31 +249,22 @@ module.exports = function(s) {
 					break;
 				}
 				if (!bp.tn()) {
-					syntaxerror(bp, "Non-numeric in capacity");
+					throw("Non-numeric in capacity");
 					return false;
 				}
 			}
 		}
 		return true;
 	}
-	function syntaxerror(bp, s) {
-		// alert(s);
-		var t = bp.getCurSlice();
-		var u = bp.getCurPosn();
-		result += "<div style=\"color:#FF0000;font-family:courier\"> Error: "
-				+ s + "<br/>";
-		result += "Current slice......: " + t + "<br/>";
-		result += "Current position...: " + u + "\n" + "</div><br/>";
-		finish();
-	}
+	 
 	function finish() {
 		var upproc;
 		var downproc;
 		var capacity; // not in generated code yet
 		if (diagname == "")
 			diagname = "MyDiagram";
-		result += "<br/>{\"properties\":<br/> { \"name\": \"" + diagname
-				+ "\"},<br/>\"processes\": <br/>{";
+		result += "\n{\"properties\":\n { \"name\": \"" + diagname
+				+ "\"},\n\"processes\": \n{";
 		var comma = "";
 		for ( var i = 0; i < procqueue.length; i++) {
 			procname = (procqueue[i])[0];
@@ -270,10 +272,10 @@ module.exports = function(s) {
 			if (compname == "")
 				continue;
 			result += comma + "\"" + procname + "\":{\"component\":\""
-					+ compname + "\"}<br/>";
+					+ compname + "\"}\n";
 			comma = ",";
 		}
-		result += "}, \"connections\":<br/>[";
+		result += "}, \"connections\":\n[";
 		comma = "";
 		for ( var i = 0; i < connqueue.length; i++) {
 			upproc = (connqueue[i])[0];
@@ -315,7 +317,7 @@ module.exports = function(s) {
 					+ "\", \"port\":\"" + downport + "\"";
 			if (downindex != "")
 				result += ", \"index\": " + downindex;
-			result += "}} <br/>";
+			result += "}} \n";
 			comma = ",";
 		}
 		result += "]}";
