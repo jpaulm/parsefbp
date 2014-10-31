@@ -61,7 +61,7 @@ The generated JSON follows the convention established for NoFlo.
 Running Parser
 ---
 
-This project has now been set up to run under `node.js`, so install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.  This project has a dependency on the `babelparser` project, so you may have to do a `npm install jpaulm/babelparser --save` beforehand.  
+This project has now been set up to run under `node.js`, so install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.  This project has a dependency on the `babelparser` project, so you may have to do a `npm install babelparser --save` beforehand.  
 
 For this test, the input data has been set up as a constant in `script/test.js`.  Output, including the first syntax error, if any, will be displayed on the console.
 
