@@ -1,30 +1,45 @@
 {
-  "name": "parsefbp",
-  "version": "0.1.0",
-  "description": "General Babel Parser functions for scanners  ",
-  "main": "script/fbpscan.js",
-  "directories": {
-    "doc": "docs"
+	"name": "parsefbp",
+	"version": "0.1.0",
+	"description": "General Babel Parser functions for scanners  ",
+	"main": "script/fbpscan.js",
+  "bin": {
+    "parsefbp": "./bin/parsefbp"
   },
-  "scripts": {
-    "test": "node script/test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jpaulm/parsefbp.git"
-  },
-  "keywords": [
-    "parser",
-    "babel",
-    "syntax"
-  ],
-  "author": "J. Paul Morrison <paul.morrison@rogers.com> (http://jpaulmorrison.com/)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jpaulm/parsefbp/issues"
-  },
-  "homepage": "https://github.com/jpaulm/parsefbp",
-  "dependencies": {
-    "babelparser": "^0.1.0"
-  }
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jpaulm/parsefbp.git"
+	},
+	"keywords": [
+		"parser",
+		"babel",
+		"syntax"
+	],
+	"author": "J. Paul Morrison <paul.morrison@rogers.com> (http://jpaulmorrison.com/)",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/jpaulm/parsefbp/issues"
+	},
+	"homepage": "https://github.com/jpaulm/parsefbp",
+	"dependencies": {
+		"babelparser": "^0.1.0"
+	},
+	"devDependencies": {
+		"mocha": "^2.0.1",
+		"should": "^4.1.0",
+		"grunt": "^0.4.5",
+		"grunt-browserify": "^3.1.0",
+		"grunt-contrib-uglify": "^0.6.0",
+		"grunt-contrib-jshint": "^0.10.0",
+		"glob": "^4.0.6",
+		"grunt-contrib-watch": "^0.6.1",
+		"grunt-contrib-connect": "^0.8.0",
+		"connect-livereload": "^0.5.0"
+	}
 }
