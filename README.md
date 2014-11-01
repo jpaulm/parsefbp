@@ -61,9 +61,9 @@ The generated JSON follows the convention established for NoFlo.
 Running Parser
 ---
 
-This project has now been set up to run under `node.js`, so install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.  This project has a dependency on the `babelparser` project, so you may have to do a `npm install babelparser --save` beforehand.  
+This project has now been set up to run under `node.js`, so install `node.js` (http://nodejs.org), and enter `node script/test.js` in your `parsefbp` directory.  This project has a dependency on the `babelparser` project, so you should do a `npm install babelparser --save` beforehand.  
 
-For this test, the input data has been set up as a constant in `script/test.js`.  Output, including the first syntax error, if any, will be displayed on the console.
+For this test, the input data has been set up as a constant in `script/test.js`.  Output, including one syntax error, if any, will be displayed on the console.
 
 Alternatively, run `html\ParseFBP.html` using your favorite browser (it's been tested under Firefox).  Currently, I'm not sure how to get around the `node.js` `require` statements - but that shouldn't be too hard for those skilled in the art!
 
