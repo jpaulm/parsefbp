@@ -510,28 +510,27 @@ var fbp = {
 			quint[3] = downport;
 		}
 
+		function syntaxerror(bp, message) {
+			throw new fbp.SyntaxError(bp, message, finish());
+		}
+
 	}
 
 };
 
-fbp.SyntaxError = function SyntaxError(bp, message) {
+fbp.SyntaxError = function SyntaxError(bp, message, result) {
 
 	this.curSlice = bp.getCurSlice();
 	this.curPosn = bp.getCurPosn();
-	this.result = this.finish();
 	this.message = 'Syntax error: ' + message + '\n' +
 	  'Current slice......: ' + this.curSlice + '\n' +
 	  'Current position...: ' + this.curPosn + '\n' +
-	  JSON.stringify(this.result);
+	  JSON.stringify(result);
 };
-
 
 fbp.SyntaxError.prototype = Error.prototype;
 fbp.SyntaxError.prototype.name = 'SyntaxError';
 
-function syntaxerror(bp, message) {
-	throw new fbp.SyntaxError(bp, message);
-}
 
 module.exports = fbp.parse;
 
