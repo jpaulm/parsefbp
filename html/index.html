@@ -1,14 +1,13 @@
 <html>
 <head>
 
-<script type="text/javascript" src="../script/fbpscan.js"></script>
-<script type="text/javascript" src="../script/babelparser.js"></script>
+<script type="text/javascript" src="parsefbp.js"></script>
 <script>
+
 function func(){
 var t = document.getElementById("searchTxt").value;
-fbpscan(t);
-var res = getresult();
-document.writeln(res);
+var res = parsefbp(t);
+document.writeln(JSON.stringify(res, null, 2));
 }
 </script>
 
@@ -16,10 +15,10 @@ document.writeln(res);
 <body>
 
 <!-- <input name="searchTxt" type="text"  id="searchTxt" class="searchField" size="400" > -->
-<textarea name="searchTxt" type="text"  id="searchTxt" rows="10" cols="80">
+<textarea name="searchTxt" id="searchTxt" rows="10" cols="80">
 </textarea>
  <br/>
-<input type="button" onclick="func()" value="Generate JSON"> 
+<input type="button" onclick="func()" value="Generate JSON">
 
 </body>
 </html>
