@@ -12,7 +12,6 @@
 					document.getElementById("resultTxt").innerHTML = JSON.stringify(res, null, 2);
 				} catch (e) {
 					document.getElementById("resultTxt").innerHTML = e;
-
 				}
 			}
 		</script>
@@ -21,13 +20,11 @@
 	<body>
 
 		<!-- <input name="searchTxt" type="text"  id="searchTxt" class="searchField" size="400" > -->
-		<textarea name="searchTxt" id="searchTxt" rows="10" cols="80">
-		</textarea>
+		<textarea name="searchTxt" id="searchTxt" rows="10" cols="80"></textarea>
 		<br/>
 		<input type="button" onclick="func()" value="Generate JSON">
 		<br/>
-		<textarea name="result" id="resultTxt" rows="10" cols="80">
-		</textarea>
+		<textarea name="result" id="resultTxt" rows="10" cols="80"></textarea>
 
 	</body>
 </html>
