@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "name": "MyDiagram"
+  },
+  "processes": {
+    "Generate": {
+      "component": "com.jpmorrsn.fbp.examples.components.GenerateTestData"
+    },
+    "Generate2": {
+      "component": "com.jpmorrsn.fbp.examples.components.GenerateTestData"
+    },
+    "_Sort__generated__data": {
+      "component": "com.jpmorrsn.fbp.components.Sort"
+    },
+    "Display": {
+      "component": "com.jpmorrsn.fbp.components.ShowText"
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "Generate",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "_Sort__generated__data",
+        "port": "in"
+      }
+    },
+    {
+      "src": {
+        "process": "Generate2",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "_Sort__generated__data",
+        "port": "in"
+      }
+    },
+    {
+      "data": "'60'",
+      "tgt": {
+        "process": "Generate2",
+        "port": "count"
+      }
+    },
+    {
+      "src": {
+        "process": "_Sort__generated__data",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "Display",
+        "port": "in"
+      }
+    },
+    {
+      "data": "'100'",
+      "tgt": {
+        "process": "Generate",
+        "port": "count"
+      }
+    }
+  ]
+}

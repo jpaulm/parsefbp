@@ -1,0 +1,78 @@
+{
+  "properties": {
+    "name": "Diagram"
+  },
+  "processes": {
+    "A1": {
+      "component": "xxx/aaa"
+    },
+    "B*3": {
+      "component": "yyy/bbb"
+    },
+    "C_A": {
+      "component": "ccc"
+    },
+    "X": {
+      "component": "www"
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "A1",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "B*3",
+        "port": "IN"
+      }
+    },
+    {
+      "src": {
+        "process": "B*3",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "C_A",
+        "port": "IN",
+        "index": "2"
+      }
+    },
+    {
+      "data": "'xxxxxxxxxxxxyyyyy'",
+      "tgt": {
+        "process": "B*3",
+        "port": "IN"
+      }
+    },
+    {
+      "src": {
+        "process": "B*3",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "C_A",
+        "port": "in",
+        "index": "3"
+      }
+    },
+    {
+      "data": "'23'",
+      "tgt": {
+        "process": "A1",
+        "port": "PARAM"
+      }
+    },
+    {
+      "src": {
+        "process": "A1",
+        "port": "OUT",
+        "index": "2"
+      },
+      "tgt": {
+        "process": "X",
+        "port": "IN"
+      }
+    }
+  ]
+}
