@@ -216,7 +216,6 @@ var fbp = {
 						continue;
 					if (bp.tc('-', 'io') || bp.tb('io') || bp.tc(',', 'io') ||
 					  //bp.tc('\n', 'io') || bp.tc('\;', 'io') ||
-						
 					  bp.tc('\n', 'io') || bp.tc(';', 'io') ||
 					  bp.tc('?', 'io') || bp.eof())
 						break;
