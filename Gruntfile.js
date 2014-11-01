@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			files: ['test/*.js', 'script/**/*.js'],
+			files: ['test/*.js', 'script/**/*.js', 'html/*.htm*'],
 			tasks: ['browserify:standalone'],
 			options: {
 				livereload: '<%= connect.options.livereload %>'
