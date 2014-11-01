@@ -1,24 +1,33 @@
 <html>
-<head>
+	<head>
 
-<script type="text/javascript" src="parsefbp.js"></script>
-<script>
+		<script type="text/javascript" src="parsefbp.js"></script>
+		<script>
 
-function func(){
-var t = document.getElementById("searchTxt").value;
-var res = parsefbp(t);
-document.writeln(JSON.stringify(res, null, 2));
-}
-</script>
+			function func() {
+				var t = document.getElementById("searchTxt").value;
 
-</head>
-<body>
+				try {
+					var res = parsefbp(t);
+					document.getElementById("resultTxt").innerHTML = JSON.stringify(res, null, 2);
+				} catch (e) {
+					document.getElementById("resultTxt").innerHTML = e;
 
-<!-- <input name="searchTxt" type="text"  id="searchTxt" class="searchField" size="400" > -->
-<textarea name="searchTxt" id="searchTxt" rows="10" cols="80">
-</textarea>
- <br/>
-<input type="button" onclick="func()" value="Generate JSON">
+				}
+			}
+		</script>
 
-</body>
+	</head>
+	<body>
+
+		<!-- <input name="searchTxt" type="text"  id="searchTxt" class="searchField" size="400" > -->
+		<textarea name="searchTxt" id="searchTxt" rows="10" cols="80">
+		</textarea>
+		<br/>
+		<input type="button" onclick="func()" value="Generate JSON">
+		<br/>
+		<textarea name="result" id="resultTxt" rows="10" cols="80">
+		</textarea>
+
+	</body>
 </html>
