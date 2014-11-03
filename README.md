@@ -69,4 +69,6 @@ If you install `parsefbp` globally (by doing `npm i jpaulm/parsefbp -g`), you ca
 
 Note: Within your windows Application data folder you can see what `npm` did to establish this (adds a simple wrapper) - thanks, Rob!
 
+Another approach is to use the `html/parsefbp.js` in some html, e.g. `html/index.html`, which puts up an input textarea and an output textarea - copy or type your input text into the former, and click on the `Generate JSON` button (some .fbp files can be found in `test/data`).
+
 Alternatively, run `npm test`.
