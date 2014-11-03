@@ -59,7 +59,7 @@ The generated JSON follows the convention established for NoFlo.
 Running Parser
 ---
 
-This project has a dependency on the `babelparser` project, so you should do a `npm install babelparser --save` beforehand. You should also have `node.js` (http://nodejs.org) installed.
+This project has a dependency on the `babelparser` project, which has also been published on `npm`, so you should do a `npm install babelparser --save` beforehand. You should also have `node.js` (http://nodejs.org) installed.
 
 One way of testing `parsefbp` is to run `bin/parsefbp data/DrawFBP_output.txt` on a *nix machine; on Windows, you have to say `node bin/parsefbp data/DrawFBP_output.txt`.
 
