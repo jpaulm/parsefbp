@@ -52,9 +52,7 @@ The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 Technology
 ---
 
-This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in https://github.com/jpaulm/babelparser/blob/master/README.md.  
-
-`babelparser.js` contains a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for non-special characters (characters allowed in process names) (`tv`).  These functions are described in more detail in https://github.com/jpaulm/babelparser/blob/master/README.md.
+This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to almost every language I've ever worked with.  This package has been published on `npm` (https://www.npmjs.org/package/babelparser), and provides a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for non-special characters (characters allowed in process names) (`tv`). There is a description of it in the BabelParser Readme file https://github.com/jpaulm/babelparser/blob/master/README.md. 
 
 The generated JSON follows the convention established for NoFlo.
 
