@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 			},
 			standalone: {
 				files: {
-					'./browser/<%= pkg.name %>.min.js': ['./browser/<%= pkg.name %>.js']
+					'./html/<%= pkg.name %>.min.js': ['./html/<%= pkg.name %>.js']
 				}
 			}
 		},
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 		browserify: {
 			standalone: {
 				src: ['script/fbpscan.js'],
-				dest: './browser/<%= pkg.name %>.js',
+				dest: './html/<%= pkg.name %>.js',
 				options: {
 					browserifyOptions: {
 						standalone: '<%= pkg.name %>'
@@ -47,7 +47,6 @@ module.exports = function (grunt) {
 					middleware: function (connect) {
 						return [
 							require('connect-livereload')(),
-							connect.static('browser'),
 							connect.static('html')
 						];
 					}

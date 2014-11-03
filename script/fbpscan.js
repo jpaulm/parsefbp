@@ -29,8 +29,7 @@ var fbp = {
 				if (!bp.tv()) {
 					if (bp.tc('_'))
 						continue;
-					if (bp.tc('-', 'io') || bp.tb('io') || bp.tc(',', 'io') ||
-					  //bp.tc('\n', 'io') || bp.tc('\;', 'io') ||
+					if (bp.tc('-', 'io') || bp.tb('io') || bp.tc(',', 'io') ||					  
 					  bp.tc('\n', 'io') || bp.tc(';', 'io') ||
 					  bp.tc('?', 'io') || bp.eof())
 						break;
