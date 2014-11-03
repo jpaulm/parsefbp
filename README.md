@@ -54,7 +54,7 @@ Technology
 
 This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to every language I've ever worked with (except maybe PL/I).  There is a description of it in https://github.com/jpaulm/babelparser/blob/master/README.md.  
 
-`babelparser.js` contains a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for characters allowed in process names (`tv`).  In the code I have not used the term "universal comparator", but the IMO more natural `copy` and `skip`. 
+`babelparser.js` contains a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for non-special characters (characters allowed in process names) (`tv`).  These functions are described in more detail in https://github.com/jpaulm/babelparser/blob/master/README.md.
 
 The generated JSON follows the convention established for NoFlo.
 
@@ -67,7 +67,7 @@ One way of testing `parsefbp` is to run `bin/parsefbp data/DrawFBP_output.txt` o
 
 If you install `parsefbp` globally (by doing `npm i jpaulm/parsefbp -g`), you can then test it by typing `parsefbp test/data/DrawFBP_output.fbp`.
 
-Note: Within your windows Application data folder you can see what `npm` did to establish this (adds a simple wrapper) - thanks, Rob!
+Note: Within your Windows Application data folder you can see what `npm` did to establish this (adds a simple wrapper) - thanks, Rob!
 
 Another approach is to use the `html/parsefbp.js` in some html, e.g. `html/index.html`, which puts up an input textarea and an output textarea - copy or type your input text into the former, and click on the `Generate JSON` button (some .fbp files can be found in `test/data`).
 
