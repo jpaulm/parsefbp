@@ -67,6 +67,6 @@ If you install `parsefbp` globally (by doing `npm i jpaulm/parsefbp -g`), you ca
 
 Note: Within your Windows Application data folder you can see what `npm` did to establish this (adds a simple wrapper) - thanks, Rob!
 
-Another approach is to use the `html/parsefbp.js` in some html, e.g. `html/index.html`, which puts up an input textarea and an output textarea - copy or type your input text into the former, and click on the `Generate JSON` button (some .fbp files can be found in `test/data`).
+Another approach is to use `grunt build` - this will build a consolidated `parsefbp.js` file in the `html` folder.  You can then use `html/parsefbp.js` in some html, e.g. `html/index.html`, which puts up an input textarea and an output textarea.  Copy or type your input text into the former, and click on the `Generate JSON` button (some .fbp files can be found in `test/data`).
 
 Alternatively, run `npm test`.
