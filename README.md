@@ -61,7 +61,7 @@ Running Parser
 
 This project has a dependency on the `babelparser` project, which has also been published on `npm`, so you should do a `npm install babelparser --save` beforehand. You should also have `node.js` (http://nodejs.org) installed.
 
-One way of testing `parsefbp` is to run `bin/parsefbp data/DrawFBP_output.txt` on a *nix machine; on Windows, you have to say `node bin/parsefbp data/DrawFBP_output.txt`.
+One way of testing `parsefbp` is to run `bin/parsefbp test/data/DrawFBP_output.fbp` on a *nix machine; on Windows, you have to say `node bin/parsefbp test/data/DrawFBP_output.fbp`.
 
 If you install `parsefbp` globally (by doing `npm i jpaulm/parsefbp -g`), you can then test it by typing `parsefbp test/data/DrawFBP_output.fbp`.
 
