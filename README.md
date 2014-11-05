@@ -59,13 +59,13 @@ The generated JSON follows the convention established for NoFlo.
 Running Parser
 ---
 
-This project has a dependency on the `babelparser` project, which has also been published on `npm`, so you should do a `npm install babelparser --save` beforehand. You should also have `node.js` (http://nodejs.org) installed.
+This project has a dependency on the `babelparser` project, which has also been published on `npm`, so you should do a `npm install` beforehand. You should also have `node.js` (http://nodejs.org) installed.
 
 One way of testing `parsefbp` is to run `bin/parsefbp test/data/DrawFBP_output.fbp` on a *nix machine; on Windows, you have to say `node bin/parsefbp test/data/DrawFBP_output.fbp`.
 
 If you install `parsefbp` globally (by doing `npm i jpaulm/parsefbp -g`), you can then test it by typing `parsefbp test/data/DrawFBP_output.fbp`.
 
-Note: Within your Windows Application data folder you can see what `npm` did to establish this (adds a simple wrapper) - thanks, Rob!
+Note: Within your Windows Application data folder you can see what `npm` did to establish this (adds a simple wrapper).
 
 Another approach is to use `grunt build` - this will build a consolidated `parsefbp.js` file in the `html` folder.  You can then use `html/parsefbp.js` in some html, e.g. `html/index.html`, which puts up an input textarea and an output textarea.  Copy or type your input text into the former, and click on the `Generate JSON` button (some .fbp files can be found in `test/data`).
 
