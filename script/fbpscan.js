@@ -3,7 +3,7 @@
 var BabelParser = require('babelparser');
 
 var fbp = {
-	parse: function fbpscan(s) {
+	parse : function fbpscan(s) {
 
 		var conn = false;
 		var procname = '';
@@ -15,13 +15,13 @@ var fbp = {
 		var quint = new Array('', '', '', '', 0); // proc, proc, outport, inport,
 		// capacity
 		var downport = '';
-		var upport = '';
-		var downstream;
+		var upport = '';		
 		var diagname = '';
 		var firstproc = true;
 
 		function process(bp) {
-			compname = '';
+			
+			procname = '';
 			if (bp.tn()) {
 				syntaxerror(bp, 'Process starting with numeric');
 			}
@@ -29,50 +29,50 @@ var fbp = {
 				if (!bp.tv()) {
 					if (bp.tc('_'))
 						continue;
-					if (bp.tc('-', 'io') || bp.tb('io') || bp.tc(',', 'io') ||					  
-					  bp.tc('\n', 'io') || bp.tc(';', 'io') ||
-					  bp.tc('?', 'io') || bp.eof())
+					if (bp.tc('-', 'io') || bp.tb('io') || bp.tc(',', 'io') ||
+							bp.tc('\n', 'io') || bp.tc(';', 'io') ||
+							bp.tc('(', 'io') || bp.tc('?', 'io') || bp.eof())
 						break;
 					if (firstproc && bp.tc(':', 'io'))
 						break;
-					if (bp.tc('\\', 'o')) {
+					if (bp.tc('\\', 'o')) { // escape character
 						if (!bp.copy()) {
 							syntaxerror(bp, 'Escape char ends string');
 						}
 						continue;
 					}
-					if (bp.tc('(', 'o')) {
-						procname = bp.getOS();
-						var ok = true;
-						while (true) {
-							if (bp.tc(')', 'o')) {
-								compname = bp.getOS();
-								break;
-							}
-							if (bp.tc('\n', 'o') || !bp.copy()) {
-								ok = false;
-								break;
-							}
-						}
-						if (!ok) {
-							syntaxerror(bp, 'Component name contains end of line');
-						}
-						pair[0] = procname;
-						pair[1] = compname;
-						procqueue.push(pair);
-						pair = new Array('', '');
-						skipblanks(bp);
-						bp.tc('?', 'o');
-						return true;
-					} else {
-						syntaxerror(bp, 'Invalid char in process name');
-					}
+					syntaxerror(bp, 'Invalid char in process name');
 				}
 			}
-			// no bracket encountered
 			procname = bp.getOS();
-			skipblanks(bp);
-			bp.tc('?', 'o');
+			pair[0] = procname;
+			return true;
+		}
+		
+		function compt(bp) {
+			compname = '';
+			//if (bp.tc('(', 'o')) {
+				var ok = true;
+				if (bp.tn())
+					syntaxerror(bp, 'Component name starts with numeric');
+				while (true) {
+					if (bp.tc(')', 'o')) {
+						compname = bp.getOS();
+						break;
+					}
+					if (bp.tc('\n', 'o') || !bp.copy()){
+						ok = false;
+						break;
+					}
+				}
+				if (!ok) {
+					syntaxerror(bp, 'Component name contains end of line');
+				}
+
+				pair[1] = compname;
+				procqueue.push(pair);
+				pair = new Array('', '');
+			//}
 			return true;
 		}
 
@@ -99,7 +99,7 @@ var fbp = {
 
 		function port(bp) {
 			var str;
-			var updown = downstream ? 'input' : 'output';
+			var updown = conn ? 'input' : 'output';
 			if (bp.tn()) {
 				syntaxerror(bp, 'Port starting with numeric');
 			}
@@ -153,7 +153,7 @@ var fbp = {
 		}
 
 		function finish() {
-			var conn;
+			var connx;
 			var upproc;
 			var downproc;
 			var i;
@@ -163,7 +163,9 @@ var fbp = {
 			if (diagname === '')
 				diagname = 'MyDiagram';
 
-			result.properties = {name: diagname};
+			result.properties = {
+				name : diagname
+			};
 			result.processes = {};
 			result.connections = [];
 
@@ -173,7 +175,9 @@ var fbp = {
 				if (compname === '')
 					continue;
 
-				result.processes[procname] = {component: compname};
+				result.processes[procname] = {
+					component : compname
+				};
 			}
 
 			for (i = 0; i < connqueue.length; i++) {
@@ -204,29 +208,31 @@ var fbp = {
 				}
 				if (upproc.charAt(0) !== '\'') {
 
-					conn = {
-						src: {
-							process: upproc,
-							port: upport
+					connx = {
+						src : {
+							process : upproc,
+							port : upport
 						}
 					};
 
 					if (upindex !== '')
-						conn.src.index = upindex;
+						connx.src.index = upindex;
 
 				} else {
-					conn = {data: upproc};
+					connx = {
+						data : upproc
+					};
 				}
 
-				conn.tgt = {
-					process: downproc,
-					port: downport
+				connx.tgt = {
+					process : downproc,
+					port : downport
 				};
 
 				if (downindex !== '')
-					conn.tgt.index = downindex;
+					connx.tgt.index = downindex;
 
-				result.connections.push(conn);
+				result.connections.push(connx);
 			}
 
 			return result;
@@ -249,6 +255,7 @@ var fbp = {
 				continue;
 			}
 			skipblanks(bp);
+			
 			if (!bp.tc('\'')) { // if not a quote, scan off process name
 				if (!process(bp))
 					return;
@@ -258,18 +265,25 @@ var fbp = {
 					firstproc = false;
 					procname = '';
 					continue;
+				} else if (bp.tc('(', 'o')) {
+					if (!compt(bp))
+						return;
+					skipblanks(bp);
+					bp.tc('?', 'o');
+					// do nothing
+				} else if (bp.tc('?', 'o')) {
+                    // do nothing
 				} else if (procname.length > 0) {
 					var ok = false;
-					for (var i = 0; i < procqueue.length; i++) {
+					for ( var i = 0; i < procqueue.length; i++) {
 						if ((procqueue[i])[0] === procname) {
 							ok = true;
 							break;
 						}
 					}
 					if (!ok) {
-						syntaxerror(bp,
-						  'No component name specified for: ' + procname
-						  );
+						syntaxerror(bp, 'No component name specified for: ' +
+								 procname);
 					}
 				}
 				firstproc = false;
@@ -280,8 +294,7 @@ var fbp = {
 					cap = 0;
 					connqueue.push(quint);
 					// alert(quint);
-					quint = new Array(procname, '', '', '', 0);
-					// downstream = false;
+					quint = new Array(procname, '', '', '', 0);					
 				}
 				procname = '';
 				skipblanks(bp);
@@ -336,14 +349,12 @@ fbp.SyntaxError = function SyntaxError(bp, message, result) {
 
 	this.curSlice = bp.getCurSlice();
 	this.curPosn = bp.getCurPosn();
-	this.message = 'Syntax error: ' + message + '\n' +
-	  'Current slice......: ' + this.curSlice + '\n' +
-	  'Current position...: ' + this.curPosn + '\n' +
-	  JSON.stringify(result);
+	this.message = 'Syntax error: ' + message + '\n' + 'Current slice......: ' +
+			 this.curSlice + '\n' + 'Current position...: ' + this.curPosn +
+			 '\n' + JSON.stringify(result);
 };
 
 fbp.SyntaxError.prototype = Error.prototype;
 fbp.SyntaxError.prototype.name = 'SyntaxError';
-
 
 module.exports = fbp.parse;
