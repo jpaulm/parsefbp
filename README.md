@@ -69,4 +69,4 @@ Note: Within your Windows Application data folder you can see what `npm` did to 
 
 Another approach is to use `grunt build` - this will build a consolidated `parsefbp.js` file in the `html` folder.  You can then use `html/parsefbp.js` in some html, e.g. `html/index.html`, which puts up an input textarea and an output textarea.  Copy or type your input text into the former, and click on the `Generate JSON` button (some .fbp files can be found in `test/data`).
 
-Alternatively, run `npm test`.
+Alternatively, run `npm test` - this is a `mocha` test, which simply generates a list of "passes" or "fails".
