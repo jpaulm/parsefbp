@@ -28,7 +28,7 @@ The final semi-colon may be omitted.
 Other symbols:
 
 - "Proc-name" represents a process name, optionally followed by the component name (in round brackets), optionally followed by a question mark to indicate that tracing is desired.  The component name can be specified on any occurrence of the process name. 
-- "Conn" represent an arrow, with optional capacity (in round brackets), e.g. `(30)`
+- "Conn" represent an arrow, with optional capacity (in round brackets), e.g. `-> (30)`
 - "IIP" represents a quoted string (using single quotes) - any internal quotes must be escaped
 - "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
 
