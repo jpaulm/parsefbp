@@ -4,16 +4,20 @@
   },
   "processes": {
     "Generate": {
-      "component": "com.jpmorrsn.fbp.examples.components.GenerateTestData"
+      "component": "com.jpmorrsn.fbp.examples.components.GenerateTestData",
+      "metadata": {}
     },
     "Generate2": {
-      "component": "com.jpmorrsn.fbp.examples.components.GenerateTestData"
+      "component": "com.jpmorrsn.fbp.examples.components.GenerateTestData",
+      "metadata": {}
     },
     "_Sort__generated__data": {
-      "component": "com.jpmorrsn.fbp.components.Sort"
+      "component": "com.jpmorrsn.fbp.components.Sort",
+      "metadata": {}
     },
     "Display": {
-      "component": "com.jpmorrsn.fbp.components.ShowText"
+      "component": "com.jpmorrsn.fbp.components.ShowText",
+      "metadata": {}
     }
   },
   "connections": [

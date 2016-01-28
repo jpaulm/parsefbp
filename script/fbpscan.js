@@ -78,8 +78,10 @@ var fbp = {
 					//console.log(mdpair[0]);
 					while (true) {
 						if (!bp.tv()) {
-							if (bp.tc(',', 'o') || bp.tc(')', 'io'))
-								break;					
+							if (bp.tc(',', 'o') || bp.tc(')', 'io')){
+								skipblanks(bp);
+								break;	
+							}
 							if (bp.tc('\\', 'o')) { // escape character
 								if (!bp.copy()) {
 									syntaxerror(bp, 'Escape char ends string');

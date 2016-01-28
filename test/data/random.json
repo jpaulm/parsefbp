@@ -4,16 +4,23 @@
   },
   "processes": {
     "A1": {
-      "component": "xxx/aaa"
+      "component": "xxx/aaa",
+      "metadata": {}
     },
     "B*3": {
-      "component": "yyy/bbb"
+      "component": "yyy/bbb",
+      "metadata": {}
     },
     "C_A": {
-      "component": "ccc"
+      "component": "ccc",      
+      "metadata": {
+         "y": "70",
+         "x": "50"
+       }
     },
     "X": {
-      "component": "www"
+      "component": "www",
+      "metadata": {}
     }
   },
   "connections": [

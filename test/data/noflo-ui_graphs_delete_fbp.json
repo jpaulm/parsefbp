@@ -4,61 +4,80 @@
   },
   "processes": {
     "Dispatch": {
-      "component": "routers/GroupRouter"
+      "component": "routers/GroupRouter",
+      "metadata": {}
     },
     "HoldDb": {
-      "component": "core/Kick"
+      "component": "core/Kick",
+      "metadata": {}
     },
     "DeleteTransaction": {
-      "component": "indexeddb/BeginTransaction"
+      "component": "indexeddb/BeginTransaction", 
+      "metadata": {}
     },
     "HoldMode": {
-      "component": "core/Kick"
+      "component": "core/Kick",
+      "metadata": {}
     },
     "StoreName": {
-      "component": "core/Merge"
+      "component": "core/Merge",
+      "metadata": {}
     },
     "ShowErrors": {
-      "component": "core/Output"
+      "component": "core/Output",
+      "metadata": {}
     },
     "ComponentStore": {
-      "component": "core/Kick"
+      "component": "core/Kick",
+      "metadata": {}
     },
     "SplitComponent": {
-      "component": "core/Split"
+      "component": "core/Split",
+      "metadata": {}
     },
     "GetKey": {
-      "component": "ui/EnsureId"
+      "component": "ui/EnsureId",
+      "metadata": {}
     },
     "GraphStore": {
-      "component": "core/Kick"
+      "component": "core/Kick",
+      "metadata": {}
     },
     "SplitGraph": {
-      "component": "core/Split"
+      "component": "core/Split",
+      "metadata": {}
     },
     "ProjectStore": {
-      "component": "core/Kick"
+      "component": "core/Kick",
+      "metadata": {}
     },
     "SplitProject": {
-      "component": "core/Split"
+      "component": "core/Split",
+      "metadata": {}
     },
     "RuntimeStore": {
-      "component": "core/Kick"
+      "component": "core/Kick",
+      "metadata": {}
     },
     "SplitRuntime": {
-      "component": "core/Split"
+      "component": "core/Split",
+      "metadata": {}
     },
     "Store": {
-      "component": "indexeddb/GetStore"
+      "component": "indexeddb/GetStore",
+      "metadata": {}
     },
     "Delete": {
-      "component": "indexeddb/Delete"
+      "component": "indexeddb/Delete",
+      "metadata": {}
     },
     "ErrorToCtx": {
-      "component": "ui/ErrorToContext"
+      "component": "ui/ErrorToContext",
+      "metadata": {}
     },
     "MergeContext": {
-      "component": "core/Merge"
+      "component": "core/Merge",
+      "metadata": {}
     }
   },
   "connections": [
