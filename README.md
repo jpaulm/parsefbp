@@ -49,6 +49,8 @@ Array port indexes are shown in square brackets, e.g. `OUT[2]`.
  
 The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 
+* As of latest commit (Jan. 28, 2016), 'x' and 'y' metadata information on the component (following the NoFlo convention) is now handled and generates correct JSON - for example, see https://github.com/jpaulm/parsefbp/blob/master/test/data/random.fbp .
+
 Technology
 ---
 
