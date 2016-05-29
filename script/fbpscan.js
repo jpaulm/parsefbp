@@ -15,12 +15,12 @@ var fbp = {
 			var quint = new Array('', '', '', '', 0); // proc, proc, outport, inport,
 			// capacity
 			var downport = '';
-			var upport = '';		
+			var upport = '';
 			var diagname = '';
 			var firstproc = true;
 
 			function process(bp) {
-				
+
 				procname = '';
 				if (bp.tn()) {
 					syntaxerror(bp, 'Process starting with numeric');
@@ -55,7 +55,7 @@ var fbp = {
 				return true;
 			}
 
-			function metadata(bp) {		
+			function metadata(bp) {
 				//console.log('metadata');
 				var meta = [];
 
@@ -64,7 +64,7 @@ var fbp = {
 					while (true) {
 						if (!bp.tv()) {
 							if (bp.tc('=', 'o'))
-								break;					
+								break;
 							if (bp.tc('\\', 'o')) { // escape character
 								if (!bp.copy()) {
 									syntaxerror(bp, 'Escape char ends string');
@@ -73,14 +73,14 @@ var fbp = {
 							}
 							syntaxerror(bp, 'Invalid char in process name');
 						}
-					}				
+					}
 					mdpair[0] = bp.getOS();
 					//console.log(mdpair[0]);
 					while (true) {
 						if (!bp.tv()) {
 							if (bp.tc(',', 'o') || bp.tc(')', 'io')){
 								skipblanks(bp);
-								break;	
+								break;
 							}
 							if (bp.tc('\\', 'o')) { // escape character
 								if (!bp.copy()) {
@@ -94,16 +94,16 @@ var fbp = {
 					mdpair[1] = bp.getOS();
 					meta.push(mdpair);
 					if (bp.tc(')', 'o'))
-						break;	
+						break;
 				}
 				//console.log(meta);
 				triplet[2] = meta;
 				return true;
-				
+
 			}
 
 			function compt(bp) {
-				
+
 				compname = '';
 				//if (bp.tc('(', 'o')) {
 				var ok = true;
@@ -213,10 +213,8 @@ var fbp = {
 				}
 				return true;
 			}
-			
+
 			function Metadata() {
-				var x = 0;
-				var y = 0;				
 			}
 
 			function finish() {
@@ -254,8 +252,8 @@ var fbp = {
 					}
 
 					result.processes[procname] = {
-							component : compname,							
-							metadata : mds 
+							component : compname,
+							metadata : mds
 					};
 				}
 
@@ -269,21 +267,21 @@ var fbp = {
 					capacity = (connqueue[i])[4]; // not used in generated JSON... yet
 					var upindex = '';
 					var downindex = '';
-					var j;
+					var portIndex;
 					var k;
 					if (upport !== '') {
-						j = upport.indexOf('[');
-						if (j > -1) {
+						portIndex = upport.indexOf('[');
+						if (portIndex > -1) {
 							k = upport.indexOf(']');
-							upindex = upport.substring(j + 1, k);
-							upport = upport.substring(0, j);
+							upindex = upport.substring(portIndex + 1, k);
+							upport = upport.substring(0, portIndex);
 						}
 					}
-					j = downport.indexOf('[');
-					if (j > -1) {
+					portIndex = downport.indexOf('[');
+					if (portIndex > -1) {
 						k = downport.indexOf(']');
-						downindex = downport.substring(j + 1, k);
-						downport = downport.substring(0, j);
+						downindex = downport.substring(portIndex + 1, k);
+						downport = downport.substring(0, portIndex);
 					}
 					if (upproc.charAt(0) !== '\'') {
 
@@ -322,7 +320,7 @@ var fbp = {
 			//console.log('starting');
 			var bp = new BabelParser(s);
 
-			
+
 			while (true) {
 				//console.log('main loop');
 				if (bp.strcmp('INPORT=') || bp.strcmp('OUTPORT=')) {
@@ -366,7 +364,7 @@ var fbp = {
 						firstproc = false;
 						procname = '';
 						continue;
-					} 
+					}
                     if (bp.tc('(', 'o')) {
 						if (!compt(bp))
 							return;
@@ -397,13 +395,13 @@ var fbp = {
 						cap = 0;
 						connqueue.push(quint);
 						// alert(quint);
-						quint = new Array(procname, '', '', '', 0);	
+						quint = new Array(procname, '', '', '', 0);
 						procname = '';
 						conn = false;
 					}
-					
+
 					skipblanks(bp);
-					
+
 					if (bp.tc(',', 'o')) {
 						skipblanks(bp);
 						continue;
@@ -414,10 +412,10 @@ var fbp = {
 						//console.log('finishing');
 						return finish();
 					}
-					
+
 					if (bp.tc('\n', 'o'))
 						continue;
-					
+
 					if (!port(bp))
 						return;
 
@@ -425,7 +423,7 @@ var fbp = {
 					quint[2] = upport;
 					if (!arrow(bp))
 						return;
-				} 
+				}
 				conn = true;
 				skipblanks(bp);
 				if (!port(bp))
