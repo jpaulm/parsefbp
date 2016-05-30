@@ -297,7 +297,7 @@ var fbp = {
 
 					} else {
 						connx = {
-								data : upproc
+								data : upproc.slice(1,-1) // strip off the single-quotes
 						};
 					}
 

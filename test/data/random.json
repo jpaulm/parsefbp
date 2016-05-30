@@ -12,7 +12,7 @@
       "metadata": {}
     },
     "C_A": {
-      "component": "ccc",      
+      "component": "ccc",
       "metadata": {
          "y": "70",
          "x": "50"
@@ -46,7 +46,7 @@
       }
     },
     {
-      "data": "'xxxxxxxxxxxxyyyyy'",
+      "data": "xxxxxxxxxxxxyyyyy",
       "tgt": {
         "process": "B*3",
         "port": "IN"
@@ -64,7 +64,7 @@
       }
     },
     {
-      "data": "'23'",
+      "data": "23",
       "tgt": {
         "process": "A1",
         "port": "PARAM"

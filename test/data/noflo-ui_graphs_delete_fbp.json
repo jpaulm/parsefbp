@@ -12,7 +12,7 @@
       "metadata": {}
     },
     "DeleteTransaction": {
-      "component": "indexeddb/BeginTransaction", 
+      "component": "indexeddb/BeginTransaction",
       "metadata": {}
     },
     "HoldMode": {
@@ -82,7 +82,7 @@
   },
   "connections": [
     {
-      "data": "'component,graph,project,runtime'",
+      "data": "component,graph,project,runtime",
       "tgt": {
         "process": "Dispatch",
         "port": "ROUTES"
@@ -99,7 +99,7 @@
       }
     },
     {
-      "data": "'readwrite'",
+      "data": "readwrite",
       "tgt": {
         "process": "HoldMode",
         "port": "DATA"
@@ -156,7 +156,7 @@
       }
     },
     {
-      "data": "'components'",
+      "data": "components",
       "tgt": {
         "process": "ComponentStore",
         "port": "DATA"
@@ -204,7 +204,7 @@
       }
     },
     {
-      "data": "'graphs'",
+      "data": "graphs",
       "tgt": {
         "process": "GraphStore",
         "port": "DATA"
@@ -252,7 +252,7 @@
       }
     },
     {
-      "data": "'projects'",
+      "data": "projects",
       "tgt": {
         "process": "ProjectStore",
         "port": "DATA"
@@ -300,7 +300,7 @@
       }
     },
     {
-      "data": "'runtimes'",
+      "data": "runtimes",
       "tgt": {
         "process": "RuntimeStore",
         "port": "DATA"

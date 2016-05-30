@@ -42,7 +42,7 @@
       }
     },
     {
-      "data": "'60'",
+      "data": "60",
       "tgt": {
         "process": "Generate2",
         "port": "count"
@@ -59,7 +59,7 @@
       }
     },
     {
-      "data": "'100'",
+      "data": "100",
       "tgt": {
         "process": "Generate",
         "port": "count"
