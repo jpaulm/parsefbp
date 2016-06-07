@@ -25,6 +25,7 @@
   },
   "connections": [
     {
+      "capacity": 20,
       "src": {
         "process": "A1",
         "port": "OUT"
@@ -79,7 +80,8 @@
       "tgt": {
         "process": "X",
         "port": "IN"
-      }
+      },
+      "capacity": 9
     }
   ]
 }
