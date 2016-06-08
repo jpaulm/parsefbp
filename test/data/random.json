@@ -80,8 +80,7 @@
       "tgt": {
         "process": "X",
         "port": "IN"
-      },
-      "capacity": 9
+      }
     }
   ]
 }
