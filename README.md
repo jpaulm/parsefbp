@@ -27,7 +27,7 @@ The final semi-colon may be omitted.
 
 Other symbols:
 
-- "Proc-name" represents a process name, optionally followed by the component name (in round brackets), optionally followed by a question mark to indicate that tracing is desired.  The component name can be specified on any occurrence of the process name. 
+- "Proc-name" represents a process name, optionally followed by the component name (in round brackets). The component name can be specified on any occurrence of the process name. 
 - "Conn" represent an arrow, with optional capacity (in round brackets), e.g. `-> (30)`
 - "IIP" represents a quoted string (using single quotes) - any internal quotes must be escaped
 - "Up-port" and "down-port" are from the point of view of the connection - they could also be called "output port" and "input port", respectively.
@@ -54,7 +54,7 @@ The NoFlo `INPORT=` and `OUTPORT=` symbols are currently ignored.
 Technology
 ---
 
-This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to almost every language I've ever worked with.  This package has been published on `npm` (https://www.npmjs.org/package/babelparser), and provides a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for non-special characters (characters allowed in process names) (`tv`). There is a description of it in the BabelParser Readme file https://github.com/jpaulm/babelparser/blob/master/README.md. 
+This parser uses the "Babel" technology which I have been using since the 1960s, and have ported to almost every language I've ever worked with.  This package has been published on `npm` (https://www.npmjs.org/package/babelparser), and provides a number of functions, such as a test for alpha (`ta`), a test for white space (`tb`), and a test for non-special characters (characters allowed in process names) (`tv`). There is a description of it in [the BabelParser Readme file](https://github.com/jpaulm/babelparser/blob/master/README.md). 
 
 The generated JSON follows the convention established for NoFlo.
 

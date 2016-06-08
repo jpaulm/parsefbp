@@ -309,6 +309,10 @@ var fbp = {
 					if (downindex !== '')
 						connx.tgt.index = downindex;
 
+					if(capacity) {
+						connx.capacity = +capacity;
+					}
+
 					result.connections.push(connx);
 				}
 
