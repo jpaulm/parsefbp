@@ -57,23 +57,17 @@ describe('ParseFBP', function () {
 	});
 	
 	describe('Other tests', function () {
-		
-		var files = glob.sync(path.resolve(__dirname, './others/*.fbp'));
-		
-		for (var i = 0; i < files.length; i++) {
-
-			var file = path.basename(files[i]);
-			console.log(file);
-			
-			expect(function () {
-					var data = loadFile2(file);
-					parsefbp(data).to.throw(Error, 'Crash test: ' + file);				
-				
-		    });
-
-		}
-		
-	});
+	    var files = glob.sync(path.resolve(__dirname, './others/*.fbp'));   
+	        for (var i = 0; i < files.length; i++) {
+	            var file = path.basename(files[i]);
+	            it('Crash test ' + file, function () {
+	                expect(function () {
+	                    var data = loadFile2(file);
+	                    parsefbp(data)
+	                }).to.throw(Error);
+	            });
+	        }       
+	    });
 });
 
 
