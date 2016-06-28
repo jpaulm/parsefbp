@@ -1,0 +1,86 @@
+{
+  "properties": {
+    "name": "Test_EOLs"
+  },
+  "processes": {
+    "A1": {
+      "component": "xxx/aaa",
+      "metadata": {}
+    },
+    "B*3": {
+      "component": "yyy/bbb",
+      "metadata": {}
+    },
+    "C_A": {
+      "component": "ccc",
+      "metadata": {
+        "y": "70",
+        "x": "50"
+      }
+    },
+    "X": {
+      "component": "www",
+      "metadata": {}
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "A1",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "B*3",
+        "port": "IN"
+      },
+      "capacity": 20
+    },
+    {
+      "src": {
+        "process": "B*3",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "C_A",
+        "port": "IN",
+        "index": "2"
+      }
+    },
+    {
+      "data": "xxxxxxxxxxxxyyyyy",
+      "tgt": {
+        "process": "B*3",
+        "port": "IN"
+      }
+    },
+    {
+      "src": {
+        "process": "B*3",
+        "port": "OUT"
+      },
+      "tgt": {
+        "process": "C_A",
+        "port": "in",
+        "index": "3"
+      }
+    },
+    {
+      "data": "23",
+      "tgt": {
+        "process": "A1",
+        "port": "PARAM"
+      }
+    },
+    {
+      "src": {
+        "process": "A1",
+        "port": "OUT",
+        "index": "2"
+      },
+      "tgt": {
+        "process": "X",
+        "port": "IN"
+      }
+    }
+  ]
+}

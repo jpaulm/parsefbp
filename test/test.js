@@ -3,9 +3,20 @@ var parsefbp = require('../script/fbpscan.js');
 var glob = require('glob');
 var path = require('path');
 var fs = require('fs');
+var expect = require('chai').expect;
+
 
 function loadFile(name, type) {
 	var file = path.resolve(__dirname, './data', name + type);
+	if (!fs.existsSync(file)) {
+		console.log('File ' + file + ' not found');
+		process.exit(1);
+	}
+	return fs.readFileSync(file, 'utf8');
+}
+
+function loadFile2(name) {
+	var file = path.resolve(__dirname, './others', name);
 	if (!fs.existsSync(file)) {
 		console.log('File ' + file + ' not found');
 		process.exit(1);
@@ -44,13 +55,25 @@ describe('ParseFBP', function () {
 		}
 
 	});
+	
+	describe('Other tests', function () {
+		
+		var files = glob.sync(path.resolve(__dirname, './others/*.fbp'));
+		
+		for (var i = 0; i < files.length; i++) {
 
-	describe('Other test', function () {
+			var file = path.basename(files[i]);
+			console.log(file);
+			
+			expect(function () {
+					var data = loadFile2(file);
+					parsefbp(data).to.throw(Error, 'Crash test: ' + file);				
+				
+		    });
 
-		it('Should finish', function () {
-			true.should.eql(true);
-		});
-
+		}
+		
 	});
-
 });
+
+

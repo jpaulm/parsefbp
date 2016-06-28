@@ -1,4 +1,4 @@
-Test_EOLs: 
+Test_EOLs2: 
 #EOLs (end of lines) in funny places...
 A1(xxx/aaa) OUT->(20) IN B\*3(yyy/bbb)  OUT ->  IN[2] C_A(ccc:y=70,x=50),
 'xxxxxxxxxxxxyyyyy' 
