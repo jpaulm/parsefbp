@@ -40,6 +40,6 @@
     "glob": "7.1.6",
     "grunt-contrib-watch": "1.1.0",
     "grunt-contrib-connect": "1.0.2",
-    "connect-livereload": "0.5.4"
+    "connect-livereload": "0.6.1"
   }
 }
