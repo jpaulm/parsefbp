@@ -33,7 +33,7 @@
   "devDependencies": {
     "mocha": "8.0.1",
     "should": "13.2.3",
-    "grunt": "1.2.0",
+    "grunt": "1.2.1",
     "grunt-browserify": "5.3.0",
     "grunt-contrib-jshint": "2.1.0",
     "grunt-contrib-uglify": "4.0.1",    
