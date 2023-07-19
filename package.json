@@ -39,7 +39,7 @@
     "grunt-contrib-uglify": "5.2.2",    
     "glob": "7.2.3",
     "grunt-contrib-watch": "1.1.0",
-    "grunt-contrib-connect": "3.0.0",
+    "grunt-contrib-connect": "4.0.0",
     "connect-livereload": "0.6.1"
   }
 }
